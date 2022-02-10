@@ -1,0 +1,47 @@
+export const demoForeCasts = [
+  {
+    target: 'PROF00003153',
+    year: '2022',
+    month: '01',
+    currency: 'USD',
+    value: 8000,
+    creatAt: '2022-01-01T03:57:41Z',
+    creatBy: 'Fred Fung',
+  },
+  {
+    target: 'PROF00003153',
+    year: '2022',
+    month: '01',
+    currency: 'USD',
+    value: 10000,
+    creatAt: '2022-01-09T03:57:41Z',
+    creatBy: 'Fred Fung',
+  },
+  {
+    target: 'PROF00003153',
+    year: '2022',
+    month: '02',
+    currency: 'USD',
+    value: 9000,
+    creatAt: '2022-01-01T03:57:41Z',
+    creatBy: 'Fred Fung',
+  },
+  {
+    target: 'PROF00003153',
+    year: '2022',
+    month: '03',
+    currency: 'USD',
+    value: 7800,
+    creatAt: '2022-01-01T03:57:41Z',
+    creatBy: 'Fred Fung',
+  },
+  {
+    target: 'PROF00003153',
+    year: '2022',
+    month: '05',
+    currency: 'USD',
+    value: 12100,
+    creatAt: '2022-01-01T03:57:41Z',
+    creatBy: 'Fred Fung',
+  }
+]

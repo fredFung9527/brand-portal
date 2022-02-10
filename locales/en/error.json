@@ -1,0 +1,13 @@
+{
+  "required": "This is required",
+  "wrongInfo": "Incorrect Information",
+  "otpExpired": "One-time Password Expired",
+  "accountHelper": "Please input your account first",
+  "otpAlreadySent": "The one-time password is already sent. Please try it later",
+  "loginFirst": "Please Login First",
+  "fileTooLarge": "File Too Large",
+  "wrongPrice": "Invalid Price",
+  "invalidDate": "Invalid Date",
+  "itemNotFound": "Item Not Found",
+  "insufficientInfo": "Insufficient Information"
+}

@@ -1,0 +1,9 @@
+{
+  "name" : "Brand Name",
+  "industry" : "Industry",
+  "manager" : "Manager",
+  "assistant" : "Assistant",
+  "advisor" : "Advisor",
+  "developer" : "Developer",
+  "brandRefCode": "Brand Ref. Code"
+}

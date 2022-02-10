@@ -1,0 +1,41 @@
+{
+  "name": "nextjs-template",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.6.0",
+    "@emotion/styled": "^11.6.0",
+    "@mui/icons-material": "^5.1.1",
+    "@mui/lab": "^5.0.0-alpha.59",
+    "@mui/material": "^5.1.1",
+    "@react-three/drei": "^8.6.3",
+    "@react-three/fiber": "^7.0.25",
+    "axios": "^0.24.0",
+    "config": "^3.3.6",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.1",
+    "next": "12.0.4",
+    "next-translate": "^1.2.0",
+    "notistack": "^2.0.3",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-imask": "^6.3.0-alpha.0",
+    "react-switch": "^6.0.0",
+    "recharts": "^2.1.8",
+    "recoil": "^0.5.2",
+    "three": "^0.136.0"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/lodash": "^4.14.178",
+    "@types/recoil": "^0.0.9",
+    "eslint": "7",
+    "eslint-config-next": "12.0.4",
+    "typescript": "^4.5.4"
+  }
+}

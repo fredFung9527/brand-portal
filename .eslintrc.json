@@ -1,0 +1,16 @@
+{
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "prefer-rest-params": "warn",
+    "camelcase": ["error"],
+    "curly": ["error"],
+    "default-case": ["error"],
+    "default-case-last": ["error"],
+    "default-param-last": ["error"],
+    "dot-notation": ["error"],
+    "eqeqeq": ["error"],
+    "func-style": ["error", "declaration"],
+    "quotes": ["error", "single"],
+    "semi": ["error", "never"]
+  }
+}

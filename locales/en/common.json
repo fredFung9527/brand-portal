@@ -1,0 +1,49 @@
+{
+  "create": "Create",
+  "finish": "Finish",
+  "confirm": "Confirm",
+  "clear": "Clear",
+  "cancel": "Cancel",
+  "open": "Open",
+  "edit": "Edit",
+  "delete": "Delete",
+  "search": "Search",
+  "searchProducts": "Search Products",
+  "chart": "Chart",
+  "button": {
+    "switchLang": "Switch Language"
+  },
+  "pages": {
+    "/": "Home",
+    "/login": "Login",
+    "/account": "My Account",
+    "/settings": "Settings",
+    "/products": "Products",
+    "/products/new": "New Product",
+    "/products/[]": "Product Details",
+    "/forecast": "Sales Forecast",
+    "/forecast/new": "New Forecast"
+  },
+  "login": {
+    "login": "Login",
+    "account": "Account",
+    "password": "Password",
+    "rememberMe": "Remember Me",
+    "getOtp": "Get One-time Password",
+    "welcome": "Welcome Back",
+    "otpHint": "An one-time password is sent to your email",
+    "newPwd": "New Password",
+    "confirmPwd": "Confrim Password",
+    "InconsistentPwd": "Inconsistent Passwords"
+  },
+  "table": {
+    "rowsPerpage": "Rows per page"
+  },
+  "dialog": {
+    "confirmDelete": "Confirm Delete",
+    "confirmDeleteText": "Are you sure to delete selected item(s)?"
+  },
+  "logout": "Logout",
+  "filter": "Filter",
+  "noResult": "No Related Result"
+}
