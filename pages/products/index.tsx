@@ -35,6 +35,7 @@ const originalFilterSeettings = {
   marketCodes: [],
   seasons: [],
   devSeasons: [],
+  effectiveSeasons: [],
   designers: [],
   suppliers: [],
   incoTerms: [],
@@ -154,6 +155,13 @@ function ProductFilterButton() {
         {
           key: 'devSeasons',
           label: t('devSeasons'),
+          type: 'custom',
+          grid: { xs: 12, sm: 6 },
+          component: <ProductSeasonInput/>
+        },
+        {
+          key: 'effectiveSeasons',
+          label: t('effectiveSeasons'),
           type: 'custom',
           grid: { xs: 12, sm: 6 },
           component: <ProductSeasonInput/>

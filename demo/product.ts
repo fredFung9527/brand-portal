@@ -39,6 +39,7 @@ export const demoProducts = [
     lastUpdate: '01/01/2022',
     lastUpdateBy: 'Fred Fung',
     devSeason: 'FW20',
+    effectiveSeason: 'W24',
     designer: 'Kevin Chan'
   },
   {
@@ -77,6 +78,7 @@ export const demoProducts = [
     lastUpdate: '01/01/2022',
     lastUpdateBy: 'Fred Fung',
     devSeason: 'W21',
+    effectiveSeason: 'W24',
     designer: 'Kevin Chan'
   },
   {
@@ -118,6 +120,7 @@ export const demoProducts = [
     lastUpdate: '01/01/2022',
     lastUpdateBy: 'Fred Fung',
     devSeason: 'W20',
+    effectiveSeason: 'W24',
     designer: 'Dennis Chan'
   },
 ]

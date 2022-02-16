@@ -102,6 +102,7 @@ export default function ProductDetail({product}) {
         <InformationTable
           data={[
             { key: t('devSeason'), text: product.devSeason },
+            { key: t('effectiveSeason'), text: product.effectiveSeason },
             { key: t('designer'), text: product.designer },
           ]}
         />

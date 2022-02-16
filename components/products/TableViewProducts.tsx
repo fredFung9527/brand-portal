@@ -110,6 +110,9 @@ function ProductTableRow({product}) {
       <MyTableCell width={180}>
         { product.devSeason }
       </MyTableCell>
+      <MyTableCell width={180}>
+        { product.effectiveSeason }
+      </MyTableCell>
       <MyTableCell>
         { product.designer }
       </MyTableCell>
@@ -150,7 +153,7 @@ export default function TableViewProducts() {
     <TableViewItems
       headers={[
         '', t('name'), t('status'), t('seasons'), t('price'), t('materials'), t('colors'), t('productType'), 
-        t('itemCodes'), t('sizes'), t('target'), t('marketCodes'), t('devSeason'), t('designer'),
+        t('itemCodes'), t('sizes'), t('target'), t('marketCodes'), t('devSeason'),  t('effectiveSeason'), t('designer'),
         t('moldCharge'), t('bulkLeadtime'), t('bulkOrderMoq'),
         t('supplier'), t('incoTerm'), t('pullTest'), t('lastUpdate')
       ]}

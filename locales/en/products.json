@@ -47,5 +47,7 @@
   "devSeasons": "Development Season(s)",
   "currency": "Currency",
   "minPrice": "Min Price",
-  "maxPrice": "Max Price"
+  "maxPrice": "Max Price",
+  "effectiveSeason": "Effective Season",
+  "effectiveSeasons": "Effective Season(s)"
 }

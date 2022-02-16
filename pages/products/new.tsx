@@ -41,6 +41,7 @@ const emptyProduct = {
   marketCodes: [],
   seasons: [],
   devSeason: '',
+  effectiveSeason: '',
   designer: '',
   moldCharge: '',
   bulkLeadtime: '',
@@ -270,6 +271,15 @@ export default function NewProduct() {
             key: 'devSeason',
             default: product.devSeason,
             label: t('devSeason'),
+            rules: product.status === 'Testing' ? null : [checkRequired(t('error:required'))],
+            type: 'custom',
+            grid: { xs: 12, sm: 6 },
+            component: <ProductDevSeasonInput/>
+          },
+          {
+            key: 'effectiveSeason',
+            default: product.effectiveSeason,
+            label: t('effectiveSeason'),
             rules: product.status === 'Testing' ? null : [checkRequired(t('error:required'))],
             type: 'custom',
             grid: { xs: 12, sm: 6 },
