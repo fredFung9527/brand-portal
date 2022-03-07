@@ -19,7 +19,12 @@ export default function MySelect({
           </MenuItem>
         }
         {map(items, (item, idx) => 
-          <MenuItem key={idx} value={item.value || item}>{item.text || item}</MenuItem>
+          <MenuItem 
+            key={idx} 
+            value={item.value || (item.value === false ? false : item)}
+          >
+            {item.text || item}
+          </MenuItem>
         )}
       </Select>
       {!hideHelperText && <FormHelperText>{helperText || ' '}</FormHelperText>}

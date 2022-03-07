@@ -26,7 +26,6 @@ export default function MarketCodeChip({label}) {
         <InformationTable
           data={[
             { key: t('market-code:name'), text: theItem.name },
-            { key: t('market-code:brandRefCode'), text: theItem.brandRefCode },
             { key: t('market-code:industry'), text: theItem.industry },
             { key: t('market-code:manager'), text: theItem.manager },
             { key: t('market-code:assistant'), text: theItem.assistant },

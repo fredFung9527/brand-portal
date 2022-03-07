@@ -1,8 +1,51 @@
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material'
+import { IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Tooltip } from '@mui/material'
 import { map } from 'lodash'
 import useTranslation from 'next-translate/useTranslation'
 import { cloneElement, useEffect } from 'react'
 import { TableViewItemsProps } from '../@types/view'
+import MyLink from './MyLink'
+import EditIcon from '@mui/icons-material/Edit'
+import FileOpenIcon from '@mui/icons-material/FileOpen'
+import FileCopyIcon from '@mui/icons-material/FileCopy'
+import DeleteButton from './DeleteButton'
+
+export function TableActions({onRemove, detailPath, editPath, clonePath}) {
+  const { t } = useTranslation('common')
+  return (
+    <>
+      <MyLink to={detailPath}>
+        <Tooltip title={t('open')}>
+          <IconButton color='success'>
+            <FileOpenIcon/>
+          </IconButton>
+        </Tooltip>
+      </MyLink>
+      <MyLink to={editPath}>
+        <Tooltip title={t('edit')}>
+          <IconButton color='primary'>
+            <EditIcon/>
+          </IconButton>
+        </Tooltip>
+      </MyLink>
+      <MyLink to={clonePath}>
+        <Tooltip title={t('clone')}>
+          <IconButton color='info'>
+            <FileCopyIcon/>
+          </IconButton>
+        </Tooltip>
+      </MyLink>
+      <DeleteButton onRemove={onRemove}/>
+    </>
+  )
+}
+
+export function MyTableCell({width=150, children}) {
+  return (
+    <TableCell style={{ minWidth: width }}>
+      { children }
+    </TableCell>
+  )
+}
 
 export default function TableViewItems({headers, page, pageSize, total, items, keyKey, init, renderItem, onPage, onPageSize }: TableViewItemsProps) {
   const { t } = useTranslation('common')

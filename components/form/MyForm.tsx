@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material'
-import { forEach, map, some } from 'lodash'
+import { filter, forEach, isEmpty, map, some } from 'lodash'
 import { cloneElement, useCallback, useEffect, useState } from 'react'
 import { MyFormItem, MyFormProps } from '../../@types/input'
 import { list2Object } from '../../utils/common'
@@ -8,14 +8,15 @@ import MySelect from '../select/MySelect'
 import MyPasswordField from './MyPasswordField'
 import MyTextField from './MyTextField'
 
-export default function MyForm({items, onChange, onValid, showError, sx, columnSpacing, updateHelper}: MyFormProps) {
+export default function MyForm({items, onChange, onValid, showError, sx, columnSpacing, updateHelper, parseNewValue}: MyFormProps) {
   const [input, setInput] = useState(list2Object(items, 'key', 'default'))
   const [helperTexts, setHelperTexts] = useState({})
 
   useEffect(() => {
     let newHelperTexts = {}
     forEach(items, it => {
-      if (it.rules?.length) {
+      const isHidden = it.hidden && it.hidden(input)
+      if (!isHidden && it.rules?.length) {
         for (const rule of it.rules) {
           const result = rule(input[it.key], input)
           if (result) {
@@ -35,7 +36,12 @@ export default function MyForm({items, onChange, onValid, showError, sx, columnS
   }, [input, updateHelper])
 
   const handleInput = useCallback((v, key) => {
-    setInput({...input, [key]: v})
+    const newValue = {...input, [key]: v}
+    if (parseNewValue) {
+      setInput(parseNewValue(input, newValue))
+    } else {
+      setInput(newValue)
+    }
   }, [input])
 
   function getFieldComponent({label, key, rules, component, type, items, otherProps}: MyFormItem) {
@@ -69,9 +75,12 @@ export default function MyForm({items, onChange, onValid, showError, sx, columnS
     }
   } 
 
+  if (isEmpty(input)) {
+    return null
+  }
   return (
     <Grid container sx={sx} columnSpacing={columnSpacing === 0 ? 0 : (columnSpacing || 2)} alignItems='flex-end'>
-      {map(items, it => 
+      {map(filter(items, item => item.hidden ? !item.hidden(input) : true), it => 
         <Grid 
           item 
           key={it.key} 

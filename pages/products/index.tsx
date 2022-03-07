@@ -9,36 +9,24 @@ import GridViewProducts from '../../components/products/GridViewProducts'
 import TableViewProducts from '../../components/products/TableViewProducts'
 import Router from 'next/router'
 import MyAutocomplete from '../../components/select/MyAutocomplete'
-import { demoCurrencies, demoIncoTerms, demoProductTypes, demoProdutcUnits, demoStatuses } from '../../demo/product'
+import { demoIndustries, demoMaterials, demoStatuses } from '../../demo/product'
 import useTranslation from 'next-translate/useTranslation'
-import ProductMaterialInput from '../../components/products/ProductMaterialInput'
-import ProductColorInput from '../../components/products/ProductColorInput'
-import ProductSizeInput from '../../components/products/ProductSizeInput'
 import { demoTargets } from '../../demo/brand'
 import ProductMarketCodeInput from '../../components/products/ProductMarketCodeInput'
 import ProductSeasonInput from '../../components/products/ProductSeasonInput'
 import { demoDesigners } from '../../demo/user'
-import { demoSuppliers } from '../../demo/production'
 
 const originalFilterSeettings = {
   statuses: [],
-  productTypes: [],
+  industries: [],
   materials: [],
-  colors: [],
   sizes: [],
-  itemCodes: [],
-  currency: '',
-  minPrice: '',
-  maxPrice: '',
-  unit: '',
+  axCodes: [],
   target: '',
   marketCodes: [],
-  seasons: [],
   devSeasons: [],
   effectiveSeasons: [],
   designers: [],
-  suppliers: [],
-  incoTerms: [],
   minPullTest: '',
   maxPullTest: ''
 }
@@ -61,72 +49,32 @@ function ProductFilterButton() {
           component: <MyAutocomplete multiple items={demoStatuses}/>
         },
         {
-          key: 'productTypes',
-          label: t('productTypes'),
+          key: 'industries',
+          label: t('industries'),
           type: 'custom',
           grid: { xs: 12, sm: 6 },
-          component: <MyAutocomplete freeSolo multiple items={demoProductTypes}/>
-        },
-        {
-          key: 'materials',
-          label: t('materials'),
-          type: 'custom',
-          grid: { xs: 12, sm: 6 },
-          component: <ProductMaterialInput/>
-        },
-        {
-          key: 'colors',
-          label: t('colors'),
-          rules: null,
-          type: 'custom',
-          grid: { xs: 12, sm: 6 },
-          component: <ProductColorInput/>
+          component: <MyAutocomplete multiple items={demoIndustries}/>
         },
         {
           key: 'sizes',
           label: t('sizes'),
           type: 'custom',
           grid: { xs: 12, sm: 6 },
-          component: <ProductSizeInput noLimit/>
+          component: <MyAutocomplete multiple freeSolo items={[]}/>
         },
         {
-          key: 'itemCodes',
-          label: t('itemCodes'),
+          key: 'materials',
+          label: t('materials'),
+          type: 'custom',
+          grid: { xs: 12, sm: 6 },
+          component: <MyAutocomplete multiple items={demoMaterials}/>
+        },
+        {
+          key: 'axCodes',
+          label: t('axCodes'),
           type: 'custom',
           grid: { xs: 12, sm: 6 },
           component: <MyAutocomplete freeSolo multiple items={[]}/>
-        },
-        {
-          key: 'currency',
-          label: t('currency'),
-          type: 'select',
-          items: demoCurrencies,
-          grid: { xs: 12, sm: 6 },
-          otherProps: {
-            notMust: true
-          }
-        },
-        {
-          key: 'minPrice',
-          label: t('minPrice'),
-          type: 'number',
-          grid: { xs: 12, sm: 6 },
-        },
-        {
-          key: 'maxPrice',
-          label: t('maxPrice'),
-          type: 'number',
-          grid: { xs: 12, sm: 6 },
-        },
-        {
-          key: 'unit',
-          label: t('unit'),
-          type: 'select',
-          items: demoProdutcUnits,
-          grid: { xs: 12, sm: 6 },
-          otherProps: {
-            notMust: true
-          }
         },
         {
           key: 'target',
@@ -144,13 +92,6 @@ function ProductFilterButton() {
           type: 'custom',
           grid: { xs: 12, sm: 6 },
           component: <ProductMarketCodeInput/>
-        },
-        {
-          key: 'seasons',
-          label: t('seasons'),
-          type: 'custom',
-          grid: { xs: 12, sm: 6 },
-          component: <ProductSeasonInput/>
         },
         {
           key: 'devSeasons',
@@ -172,20 +113,6 @@ function ProductFilterButton() {
           type: 'custom',
           grid: { xs: 12, sm: 6 },
           component: <MyAutocomplete freeSolo multiple items={demoDesigners}/>
-        },
-        {
-          key: 'suppliers',
-          label: t('suppliers'),
-          type: 'custom',
-          grid: { xs: 12, sm: 6 },
-          component: <MyAutocomplete freeSolo multiple items={demoSuppliers}/>
-        },
-        {
-          key: 'incoTerms',
-          label: t('incoTerms'),
-          type: 'custom',
-          grid: { xs: 12, sm: 6 },
-          component: <MyAutocomplete multiple items={demoIncoTerms}/>
         },
         {
           key: 'minPullTest',
@@ -212,7 +139,7 @@ export default function Products({oldMode, oldKeyword}) {
     setMode(v)
     Router.push({
       pathname: Router.pathname,
-      query: v === 'grid' ? null : { mode: v}
+      query: v === 'grid' ? null : { mode: v }
     })
   }, [])
 

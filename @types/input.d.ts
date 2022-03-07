@@ -12,7 +12,8 @@ export interface MyInputProps {
   helperText?: string,
   readOnly?: boolean,
   notClearable?: boolean,
-  sx?: SxProps
+  sx?: SxProps,
+  disabled?: boolean
 }
 
 export type MyInputEvent = ChangeEvent<HTMLInputElement>
@@ -51,6 +52,21 @@ export interface MySelectProps extends MyInputProps {
   notMust?: boolean
 }
 
+export interface MyTabsProps extends MyInputProps {
+  textKey?: string,
+  items: any[],
+  vertical?: boolean
+}
+
+export interface MyListInputProps extends MyInputProps {
+  color?: 'primary' | 'info' | 'success' | 'warning',
+  defaultValue: any,
+  showError?: boolean,
+  onValid?: (v) => void,
+  items: MyFormItem[],
+  parseNewValue?: (oldV, newV) => any
+}
+
 export interface MyCheckBoxProps extends MyInputProps {
   color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning',
 }
@@ -69,7 +85,8 @@ export interface MyFormItem {
   component?: ReactElement,
   items?: any[],
   default?: any,
-  otherProps?: any
+  otherProps?: any,
+  hidden?: (v) => boolean
 }
 export interface MyFormProps {
   items: MyFormItem[], 
@@ -78,7 +95,8 @@ export interface MyFormProps {
   showError?: boolean,
   columnSpacing?: number,
   sx?: SxProps,
-  updateHelper?: any
+  updateHelper?: any,
+  parseNewValue?: (oldV, newV) => any
 }
 
 export interface MyFilePickerProps {

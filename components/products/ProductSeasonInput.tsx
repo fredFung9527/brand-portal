@@ -25,23 +25,23 @@ const TextMask = forwardRef(
   }
 )
 
-export default function ProductSeasonInput(props: MyTextFieldProps) {
+export default function ProductSeasonInput({single, ...otherProps}: MyTextFieldProps & {single?: boolean}) {
+  if (single) {
+    return (
+      <MyTextField
+        {...otherProps}
+        inputComponent={TextMask}
+      />
+    )
+  }
+
   return (
     <MyAutocomplete
       freeSolo
       multiple
       items={[]}
       inputComponent={TextMask}
-      {...props}
-    />
-  )
-}
-
-export function ProductDevSeasonInput(props: MyTextFieldProps) {
-  return (
-    <MyTextField
-      {...props}
-      inputComponent={TextMask}
+      {...otherProps}
     />
   )
 }

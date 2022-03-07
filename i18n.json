@@ -5,7 +5,8 @@
   "pages": {
     "*": ["common", "error"],
     "/settings": ["settings"],
-    "rgx:^/products": ["products", "market-code", "color"],
-    "rgx:^/forecast": ["forecast"]
+    "rgx:^/products": ["products", "market-code"],
+    "rgx:^/sales": ["products", "market-code"],
+    "/": ["products", "market-code"]
   }
 }

@@ -28,7 +28,8 @@
     "react-switch": "^6.0.0",
     "recharts": "^2.1.8",
     "recoil": "^0.5.2",
-    "three": "^0.136.0"
+    "three": "^0.136.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",

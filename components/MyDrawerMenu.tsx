@@ -18,7 +18,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import SearchIcon from '@mui/icons-material/Search'
 import AddIcon from '@mui/icons-material/Add'
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney'
-import ShowChartIcon from '@mui/icons-material/ShowChart'
 import { recoilMenu } from '../recoil/common'
 
 function MyListItem({icon, text, to, onClick}) {
@@ -82,6 +81,22 @@ export default function MyDrawerMenu() {
       to: '/'
     },
     {
+      text: t('pages./sales'),
+      icon: <AttachMoneyIcon/>,
+      subPages: [
+        {
+          text: t('search'),
+          icon: <SearchIcon/>,
+          to: '/sales'
+        },
+        {
+          text: t('create'),
+          icon: <AddIcon/>,
+          to: '/sales/new'
+        }
+      ]
+    },
+    {
       text: t('pages./products'),
       icon: <CategoryIcon/>,
       subPages: [
@@ -91,25 +106,14 @@ export default function MyDrawerMenu() {
           to: '/products'
         },
         {
-          text: t('create'),
+          text: t('create') + ' (Custom)',
           icon: <AddIcon/>,
-          to: '/products/new'
-        }
-      ]
-    },
-    {
-      text: t('pages./forecast'),
-      icon: <AttachMoneyIcon/>,
-      subPages: [
-        {
-          text: t('chart'),
-          icon: <ShowChartIcon/>,
-          to: '/forecast'
+          to: '/products/new/custom'
         },
         {
-          text: t('create'),
+          text: t('create') + ' (General)',
           icon: <AddIcon/>,
-          to: '/forecast/new'
+          to: '/products/new/general'
         }
       ]
     },

@@ -1,40 +1,17 @@
 import MyAutocomplete from '../select/MyAutocomplete'
-import { demoMarketCodes } from '../../demo/brand'
 import { MyTextFieldProps } from '../../@types/input'
-import { map } from 'lodash'
+import { forEach } from 'lodash'
+import { demoMyBrands } from '../../demo/user'
 
 export default function ProductMarketCodeInput({single, ...otherProps}: MyTextFieldProps & {single?: boolean}) {
-  if (single) {
-    return (
-      <MyAutocomplete
-        {...otherProps}
-        items={demoMarketCodes}
-        getOptionLabel={(option) => {
-          if (typeof option === 'string') {
-            return option
-          } else {
-            return `${option.marketCode} / ${option.name}`
-          }
-        }}
-        isOptionEqualToValue={(option, value) => option.marketCode === value.marketCode}
-      />
-    )
-  }
+  let options = []
+  forEach(demoMyBrands, it => options = [...options, ...(it.marketCodes || [])])
   
   return (
     <MyAutocomplete
+      multiple={!single}
       {...otherProps}
-      multiple
-      items={demoMarketCodes}
-      getOptionLabel={(option) => {
-        if (typeof option === 'string') {
-          return option
-        } else {
-          return `${option.marketCode} / ${option.name}`
-        }
-      }}
-      isOptionEqualToValue={(option, value) => option.marketCode === value}
-      onChange={(newValue) => otherProps.onChange && otherProps.onChange(map(newValue, it => it.marketCode || it))}
+      items={options}
     />
   )
 }

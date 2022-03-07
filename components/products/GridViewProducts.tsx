@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import ProductCard from './ProductCard'
-import { demoProducts } from '../../demo/product'
+import { demoProductBasics } from '../../demo/product'
 import GridViewItems from '../GridViewItems'
 
 export default function GridViewProducts() {
@@ -18,7 +18,7 @@ export default function GridViewProducts() {
       md={3}
       page={page}
       totalPage={totalPage}
-      init={() => setProducts(demoProducts)}
+      init={() => setProducts(demoProductBasics)}
       onPage={setPage}
     />
   )

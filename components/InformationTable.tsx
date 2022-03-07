@@ -1,4 +1,4 @@
-import { Table, Paper, TableBody, TableCell, TableContainer, TableRow, Divider } from '@mui/material'
+import { Table, Paper, TableBody, TableCell, TableContainer, TableRow } from '@mui/material'
 import { map } from 'lodash'
 
 export default function InformationTable({data, ...otherProps}) {
@@ -7,10 +7,7 @@ export default function InformationTable({data, ...otherProps}) {
       <Table>
         <TableBody>
           {map(data, (row, idx) => (
-            <TableRow
-              key={idx}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
+            <TableRow key={idx}>
               <TableCell 
                 component='th' scope='row' 
                 width={'25%'} align='center'
@@ -20,7 +17,7 @@ export default function InformationTable({data, ...otherProps}) {
               >
                 {row.key}
               </TableCell>
-              <TableCell>
+              <TableCell sx={{whiteSpace: 'pre-wrap'}}>
                 {row.text}
               </TableCell>
             </TableRow>

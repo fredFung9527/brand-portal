@@ -1,5 +1,6 @@
 import { forEach } from 'lodash'
 import { User } from '../@types/user'
+import { v4 as uuidv4 } from 'uuid'
 
 export function sleep(milliseconds: number) {
   return new Promise(resolve => setTimeout(resolve, milliseconds))
@@ -27,10 +28,6 @@ export function numberWithCommas(v) {
   return v && v.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') || ''
 }
 
-export function getCurrencySymbol(v: string) {
-  const mapping = {
-    'USD': '$',
-    'CNY': '¥'
-  }
-  return mapping[v] || ''
+export function addTempId(v) {
+  return {...v, tempId: uuidv4()}
 }

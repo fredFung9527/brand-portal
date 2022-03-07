@@ -4,6 +4,5 @@
   "manager" : "Manager",
   "assistant" : "Assistant",
   "advisor" : "Advisor",
-  "developer" : "Developer",
-  "brandRefCode": "Brand Ref. Code"
+  "developer" : "Developer"
 }

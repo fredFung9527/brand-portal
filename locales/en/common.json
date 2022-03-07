@@ -20,9 +20,13 @@
     "/settings": "Settings",
     "/products": "Products",
     "/products/new": "New Product",
+    "/products/new/custom": "New Custom Product",
+    "/products/new/general": "New General Product",
     "/products/[]": "Product Details",
-    "/forecast": "Sales Forecast",
-    "/forecast/new": "New Forecast"
+    "/sales": "Sales",
+    "/sales/[]": "Sales Details",
+    "/sales/new": "New Sales",
+    "/sales/brand": "Brand Sales"
   },
   "login": {
     "login": "Login",
@@ -45,5 +49,9 @@
   },
   "logout": "Logout",
   "filter": "Filter",
-  "noResult": "No Related Result"
+  "noResult": "No Related Result",
+  "updatedOn": "updated on",
+  "lastUpdate": "Last Update",
+  "add": "Add",
+  "clone": "Clone"
 }

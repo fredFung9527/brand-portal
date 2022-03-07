@@ -1,16 +1,8 @@
-import { Autocomplete, TextField, Paper, Grow, PaperProps, createFilterOptions } from '@mui/material'
+import { Autocomplete, TextField, createFilterOptions } from '@mui/material'
 import { MyAutocompleteProps } from '../../@types/input'
 import CloseIcon from '@mui/icons-material/Close'
 
 const filter = createFilterOptions()
-
-function MyMenuPaper(props: PaperProps) {
-  return (
-    <Grow in={true}>
-      <Paper {...props}/>
-    </Grow>
-  )
-}
 
 function Basic({
   variant, label, error, required, hideHelperText, onChange, multiple, 
@@ -39,7 +31,6 @@ function Basic({
       multiple={multiple}
       autoHighlight
       disableClearable={notClearable}
-      PaperComponent={(params) => <MyMenuPaper {...params}/>}
     />
   )
 }
@@ -82,7 +73,6 @@ function Solo({
       multiple={multiple}
       autoHighlight
       disableClearable={notClearable}
-      PaperComponent={(params) => <MyMenuPaper {...params}/>}
       selectOnFocus
       clearOnBlur
       freeSolo
