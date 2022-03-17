@@ -8,12 +8,6 @@ export const demoUser: User = {
   username: 'demo.user'
 }
 
-export const demoDesigners = [
-  'Alex Chung',
-  'Dennis Chan',
-  'Kevin Chan'
-]
-
 export const demoMyBrands = [
   {
     name: '5.11',

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import GridViewItems from '../GridViewItems'
 import { filter, includes, map } from 'lodash'
-import { demoPCCForSales } from '../../demo/sales'
-import { getPCCForSalesDetails } from '../../utils/sales'
+import { demoOnSales } from '../../demo/sales'
+import { getOnSalesDetails } from '../../utils/sales'
 import SalesCard from './SalesCard'
 
 export default function GridViewSales({keyword, filterSettings}) {
@@ -11,12 +11,12 @@ export default function GridViewSales({keyword, filterSettings}) {
   const [totalPage, setTotalPage] = useState(10)
 
   useEffect(() => {
-    const relatedPPCForSales = filterSettings?.marketCodes ? 
-      filter(demoPCCForSales, it => includes(filterSettings.marketCodes, it.marketCode)):
-      demoPCCForSales
-    setSales(map(relatedPPCForSales, it => getPCCForSalesDetails(it)))
+    const relatedOnSales = filterSettings?.marketCodes ? 
+      filter(demoOnSales, it => includes(filterSettings.marketCodes, it.marketCode)):
+      demoOnSales
+    setSales(map(relatedOnSales, it => getOnSalesDetails(it)))
   }, [keyword, filterSettings])
-  
+
   return (
     <GridViewItems
       items={sales}
@@ -25,9 +25,6 @@ export default function GridViewSales({keyword, filterSettings}) {
       xs={6}
       sm={4}
       md={3}
-      page={page}
-      totalPage={totalPage}
-      onPage={setPage}
     />
   )
 }

@@ -11,7 +11,7 @@ export default function ProductStatus({status, noText=false}) {
       </Grid>
     )
   }
-  if (status === 'In Progress') {
+  if (status === 'Processing') {
     return (
       <Grid container alignItems='center'>
         <HourglassBottomIcon color='primary' sx={{mr: 1}}/>{noText ? null : status}

@@ -58,15 +58,6 @@ export interface MyTabsProps extends MyInputProps {
   vertical?: boolean
 }
 
-export interface MyListInputProps extends MyInputProps {
-  color?: 'primary' | 'info' | 'success' | 'warning',
-  defaultValue: any,
-  showError?: boolean,
-  onValid?: (v) => void,
-  items: MyFormItem[],
-  parseNewValue?: (oldV, newV) => any
-}
-
 export interface MyCheckBoxProps extends MyInputProps {
   color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning',
 }

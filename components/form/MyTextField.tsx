@@ -17,7 +17,11 @@ export default function MyTextField({
           </IconButton> :
           (notClearable ? 
             null:
-            <IconButton edge='end' onClick={_ => onChange && onChange('')} title='Clear'>
+            <IconButton 
+              edge='end' 
+              onClick={_ => otherProps?.disabled ? null : onChange && onChange('')} 
+              title='Clear'
+            >
               <CloseIcon/>
             </IconButton>
           )
@@ -35,7 +39,7 @@ export default function MyTextField({
         inputComponent
       }}
       multiline={multiline}
-      minRows={multiline ? 4 : null}
+      minRows={multiline ? 3 : null}
       fullWidth
       helperText={hideHelperText ? '' : (otherProps.helperText || ' ')}
       onChange={event => onChange && onChange(event.target.value)}

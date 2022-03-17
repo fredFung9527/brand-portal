@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { MyTextFieldProps } from '../../@types/input'
 import MyTextField from '../form/MyTextField'
 
-export default function ProductPullTestInput({value, onChange, ...otherProps}: MyTextFieldProps) {
+export default function PullTestInput({value, onChange, ...otherProps}: MyTextFieldProps) {
   const [lbs, setLbs] = useState('')
   const ratio = 2.20462262
 

@@ -11,8 +11,8 @@ export const demoProductBasics = [
     'thumbnail': null,
     'threeDPhoto': '/demo/box.gltf',
     'industries': ['Apparel', 'Pack', 'Military'],
-    'lastUpdated': '01/03/2022',
-    'lastUpdatedBy': 'Fred Fung',
+    'updated': '01/03/2022',
+    'updatedBy': 'Fred Fung',
   },
   {
     'id': 2,
@@ -26,8 +26,8 @@ export const demoProductBasics = [
     'thumbnail': null,
     'threeDPhoto': null,
     'industries': ['Apparel', 'Pack'],
-    'lastUpdated': '01/03/2022',
-    'lastUpdatedBy': 'Fred Fung',
+    'updated': '01/03/2022',
+    'updatedBy': 'Fred Fung',
   },
   {
     'id': 3,
@@ -41,8 +41,8 @@ export const demoProductBasics = [
     'thumbnail': null,
     'threeDPhoto': null,
     'industries': ['Pack'],
-    'lastUpdated': '01/03/2022',
-    'lastUpdatedBy': 'Fred Fung',
+    'updated': '01/03/2022',
+    'updatedBy': 'Fred Fung',
   }
 ]
 
@@ -50,210 +50,176 @@ export const demoProductSizes = [
   {
     'id': 1,
     'productBasicId': 1,
-    'sizeName': 'Any',
+    'name': 'Any',
     'remarks': 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
     'devSeason': 'W20',
-    'effectiveSeason': 'S20',
     'designer': 'Alex Chung',
-    'lastUpdated': '01/03/2022',
-    'lastUpdatedBy': 'Fred Fung',
+    'updated': '01/03/2022',
+    'updatedBy': 'Fred Fung',
   },
   {
     'id': 2,
     'productBasicId': 2,
-    'sizeName': '38mm',
+    'name': '38mm',
     'remarks': 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
     'devSeason': 'F21',
-    'effectiveSeason': 'F22',
     'designer': 'Kevin Chan',
-    'lastUpdated': '01/03/2022',
-    'lastUpdatedBy': 'Fred Fung',
+    'updated': '01/03/2022',
+    'updatedBy': 'Fred Fung',
   },
   {
     'id': 3,
     'productBasicId': 3,
-    'sizeName': '15mm',
+    'name': '15mm',
     'remarks': 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
     'devSeason': 'W21',
-    'effectiveSeason': 'S21',
     'designer': 'Kevin Chan',
-    'lastUpdated': '01/03/2022',
-    'lastUpdatedBy': 'Fred Fung',
+    'updated': '01/03/2022',
+    'updatedBy': 'Fred Fung',
   },
   {
     'id': 4,
     'productBasicId': 3,
-    'sizeName': '20mm',
+    'name': '20mm',
     'description': 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
     'remarks': 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
     'devSeason': 'W21',
-    'effectiveSeason': 'S21',
     'designer': 'Kevin Chan',
-    'lastUpdated': '01/03/2022',
-    'lastUpdatedBy': 'Fred Fung',
-  }
-]
-
-export const demoPCCs = [
-  {
-    'id': 1,
-    'productSizeId': 1,
-    'name': 'Default',
-    'remarks': 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
-    'lastUpdated': '01/03/2022',
-    'lastUpdatedBy': 'Fred Fung',
-  },
-  {
-    'id': 2,
-    'productSizeId': 2,
-    'name': 'Default',
-    'remarks': 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
-    'lastUpdated': '01/03/2022',
-    'lastUpdatedBy': 'Fred Fung',
-  },
-  {
-    'id': 3,
-    'productSizeId': 3,
-    'name': 'Default',
-    'remarks': 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
-    'lastUpdated': '01/03/2022',
-    'lastUpdatedBy': 'Fred Fung',
-  },
-  {
-    'id': 4,
-    'productSizeId': 4,
-    'name': 'Default',
-    'remarks': 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
-    'lastUpdated': '01/03/2022',
-    'lastUpdatedBy': 'Fred Fung',
+    'updated': '01/03/2022',
+    'updatedBy': 'Fred Fung',
   }
 ]
 
 export const demoPCs = [
   {
     'id': 1,
-    'pccId': 1,
+    'productSizeId': 1,
     'axCode': '121-70034-000000',
+    'factory': 'YL',
     'type': 'Any',
     'remarks': 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
     'materials': ['POM'],
-    'colors': ['B255'],
-    'lastUpdated': '01/03/2022',
-    'lastUpdatedBy': 'Fred Fung',
+    'updated': '01/03/2022',
+    'updatedBy': 'Fred Fung',
   },
   {
     'id': 2,
-    'pccId': 2,
+    'productSizeId': 2,
     'axCode': '111-06684-000010',
+    'factory': 'YL',
     'type': 'Male',
     'remarks': 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
     'materials': ['POM'],
-    'colors': ['DTM'],
-    'lastUpdated': '01/03/2022',
-    'lastUpdatedBy': 'Fred Fung',
+    'updated': '01/03/2022',
+    'updatedBy': 'Fred Fung',
   },
   {
     'id': 3,
-    'pccId': 2,
+    'productSizeId': 2,
     'axCode': '111-16685-000010',
+    'factory': 'YL',
     'type': 'Female',
     'remarks': 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
     'materials': ['POM'],
-    'colors': ['DTM'],
-    'lastUpdated': '01/03/2022',
-    'lastUpdatedBy': 'Fred Fung',
+    'updated': '01/03/2022',
+    'updatedBy': 'Fred Fung',
   },
   {
     'id': 4,
-    'pccId': 3,
+    'productSizeId': 3,
     'axCode': '111-90658-000000',
+    'factory': 'YL',
     'type': 'Male',
     'remarks': 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
     'materials': ['NY'],
-    'colors': null,
-    'lastUpdated': '01/03/2022',
-    'lastUpdatedBy': 'Fred Fung',
+    'updated': '01/03/2022',
+    'updatedBy': 'Fred Fung',
   },
   {
     'id': 5,
-    'pccId': 3,
+    'productSizeId': 3,
     'axCode': '111-90668-000000',
+    'factory': 'YL',
     'type': 'Female',
     'remarks': 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
     'materials': ['NY'],
-    'colors': null,
-    'lastUpdated': '01/03/2022',
-    'lastUpdatedBy': 'Fred Fung',
+    'updated': '01/03/2022',
+    'updatedBy': 'Fred Fung',
   },
   {
     'id': 6,
-    'pccId': 4,
+    'productSizeId': 4,
     'axCode': '111-90649-000000',
+    'factory': 'YL',
     'type': 'Male',
     'remarks': 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
     'materials': ['NY'],
-    'colors': null,
-    'lastUpdated': '01/03/2022',
-    'lastUpdatedBy': 'Fred Fung',
+    'updated': '01/03/2022',
+    'updatedBy': 'Fred Fung',
   },
   {
     'id': 7,
-    'pccId': 4,
+    'productSizeId': 4,
     'axCode': '111-90650-000000',
+    'factory': 'YL',
     'type': 'Female',
     'remarks': 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
     'materials': ['NY'],
-    'colors': null,
-    'lastUpdated': '01/03/2022',
-    'lastUpdatedBy': 'Fred Fung',
+    'updated': '01/03/2022',
+    'updatedBy': 'Fred Fung',
   }
 ]
 
-export const demoPCCTestings = [
+export const demoTestings = [
   {
     'id': 1,
-    'pccId': 1,
+    'productSizeId': 1,
     'type': 'Pull Test',
     'result': '>=20kg',
-    'lastUpdated': '01/03/2022',
-    'lastUpdatedBy': 'Fred Fung',
+    'remarks': 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
+    'updated': '01/03/2022',
+    'updatedBy': 'Fred Fung',
   },
   {
     'id': 2,
-    'pccId': 1,
+    'productSizeId': 1,
     'type': 'Needle Detection',
     'result': 'Yes',
-    'lastUpdated': '01/03/2022',
-    'lastUpdatedBy': 'Fred Fung',
+    'remarks': 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
+    'updated': '01/03/2022',
+    'updatedBy': 'Fred Fung',
   },
   {
     'id': 3,
-    'pccId': 2,
+    'productSizeId': 2,
     'type': 'Pull Test',
     'result': '>=80kg',
-    'lastUpdated': '01/03/2022',
-    'lastUpdatedBy': 'Fred Fung',
+    'remarks': 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
+    'updated': '01/03/2022',
+    'updatedBy': 'Fred Fung',
   },
   {
     'id': 4,
-    'pccId': 2,
+    'productSizeId': 2,
     'type': 'Needle Detection',
     'result': 'Yes',
-    'lastUpdated': '01/03/2022',
-    'lastUpdatedBy': 'Fred Fung',
+    'remarks': 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
+    'updated': '01/03/2022',
+    'updatedBy': 'Fred Fung',
   },
   {
     'id': 5,
-    'pccId': 3,
+    'productSizeId': 3,
     'type': 'Pull Test',
     'result': '>=50kg',
-    'lastUpdated': '01/03/2022',
-    'lastUpdatedBy': 'Fred Fung',
+    'remarks': 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
+    'updated': '01/03/2022',
+    'updatedBy': 'Fred Fung',
   },
 ]
 
 export const demoStatuses = [
-  'Completed', 'In Progress', 'Testing'
+  'Completed', 'Processing', 'Testing'
 ]
 
 export const demoIndustries = [
@@ -281,9 +247,10 @@ export const demoMaterials = [
   'Steel'
 ]
 
-export const demoTestingType = [
-  'Pull Test',
-  'Needle Detection',
+export const demoTestingTypes = [
+  'Pull',
+  'Needle',
+  'Others'
 ]
 
 export const demoProductTages = [
@@ -292,43 +259,46 @@ export const demoProductTages = [
     'type': 'Common',
     'name': 'BlueSign',
     'showOrder': 2,
-    'parentTag': null,
-    'chtName': ''
+    'parentId': null
   },
   {
     'id': 2,
     'type': 'Common',
     'name': 'Patented',
     'showOrder': 2,
-    'parentTag': null,
-    'chtName': ''
+    'parentId': null
   },
   {
     'id': 3,
     'type': 'Common',
     'name': 'Patent Pending',
     'showOrder': 3,
-    'parentTag': null,
-    'chtName': ''
+    'parentId': null
   },
   {
     'id': 4,
     'type': 'Common',
     'name': 'GRS',
     'showOrder': 4,
-    'parentTag': null,
-    'chtName': ''
+    'parentId': null
   },
   {
     'id': 5,
     'type': 'Common',
     'name': 'GRS Raw',
     'showOrder': 5,
-    'parentTag': null,
-    'chtName': ''
+    'parentId': null
   },
 ]
 
-export const demoDimensionTypes = [
+export const demoSizeDetailTypes = [
+  'ID Φ', 
+  'OD Φ', 
+  'Webbing',
   'Buckle'
+]
+
+export const demoSizeUnits = [
+  'mm', 
+  'cm',
 ]

@@ -1,29 +1,23 @@
 import { filter, find, sortBy } from 'lodash'
-import { demoPCCTestings, demoPCs } from '../demo/product'
-import { demoPCCExtraInfomations, demoPCCForSales, demoPCCPrices } from '../demo/sales'
-import { getPCC, getProductBasic, getProductSize } from './products'
+import { demoPCs, demoTestings } from '../demo/product'
+import { demoOnSales, demoPrices, demoSizeInfomations } from '../demo/sales'
+import { getProduct, getProductSize } from './products'
 
-export function getPCCForeSales(id) {
-  return find(demoPCCForSales, it => it.id === Number(id))
+export function getOnSale(id) {
+  return find(demoOnSales, it => it.id === Number(id))
 }
 
-export function getPCCBySaleItem(item) {
-  const thePCC = getPCC(item?.pccId)
-  const testings = filter(demoPCCTestings, it => it.pccId === item?.pccId)
-  const components = filter(demoPCs, it => it.pccId === item?.pccId)
-  const prices = sortBy(filter(demoPCCPrices, it => it.pccId === item?.pccId && it.marketCode === item?.marketCode && it.brandRefCode === item?.brandRefCode), it => it.lastUpdated)
-  const extraInfomations = filter(demoPCCExtraInfomations, it => it.pccId === item?.pccId && it.marketCode === item?.marketCode && it.brandRefCode === item?.brandRefCode)
-  return {...thePCC, extraInfomations, components, testings, prices}
-}
-
-export function getPCCForSalesDetails(v) {
-  const theItem = typeof v === 'string' ? getPCCForeSales(v) : v
+export function getOnSalesDetails(v) {
+  const theItem = typeof v === 'string' ? getOnSale(v) : v
   if (!theItem) {
     return {}
   }
 
-  const pcc = getPCCBySaleItem(theItem)
-  const productSize = getProductSize(pcc?.productSizeId)
-  const productBasic = getProductBasic(productSize?.productBasicId)
-  return {...theItem, pcc, productSize, productBasic }
+  const testings = filter(demoTestings, it => it.productSizeId === theItem.productSizeId)
+  const components = filter(demoPCs, it => it.productSizeId === theItem.productSizeId)
+  const prices = sortBy(filter(demoPrices, it => it.productSizeId === theItem.productSizeId && it.marketCode === theItem.marketCode && it.brandRefCode === theItem.brandRefCode), it => it.updated)
+  const sizeInfomations = filter(demoSizeInfomations, it => it.productSizeId === theItem.productSizeId && it.marketCode === theItem.marketCode && it.brandRefCode === theItem.brandRefCode)
+  const size = getProductSize(theItem.productSizeId)
+  const product = getProduct(size?.productBasicId)
+  return {...theItem, testings, components, prices, sizeInfomations, size, product }
 }

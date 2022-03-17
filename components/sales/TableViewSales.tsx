@@ -7,20 +7,19 @@ import ProductStatus from '../products/ProductStatus'
 import ProductTargetChip from '../products/ProductTargetChip'
 import MarketCodeChip from '../products/MarketCodeChip'
 import LastUpdate from '../products/LastUpdate'
-import { demoPCCForSales } from '../../demo/sales'
-import { getPCCForSalesDetails } from '../../utils/sales'
+import { demoOnSales } from '../../demo/sales'
+import { getOnSalesDetails } from '../../utils/sales'
 import PriceDisplay from './PriceDisplay'
 
 function SalesTableRow({item}) {
-  const productBasic = item?.productBasic || {}
-  const productSize = item?.productSize || {}
-  const pcc = item?.pcc || {}
+  const product = item?.product || {}
+  const size = item?.size || {}
 
-  function getFromExtraInfomations(type) {
-    return find(pcc?.extraInfomations, it => it.type === type)
+  function getFromSizeInfomations(type) {
+    return find(item?.sizeInfomations, it => it.type === type)
   }
   function getFromTestings(type) {
-    return find(pcc?.testings, it => it.type === type)
+    return find(item?.testings, it => it.type === type)
   }
 
   if (!item) {
@@ -30,50 +29,47 @@ function SalesTableRow({item}) {
     <TableRow>
       <MyTableCell width={192}>
         <TableActions
-          detailPath={`/sales/${item.id}`}
+          detailPath={`/sales/${item?.id}`}
           editPath={'/sales/new'}
           clonePath={'/sales/new'}
           onRemove={null}
         />
       </MyTableCell>
       <MyTableCell width={220}>
-        { item.newProductName || productBasic.name }
+        { item?.newProductName || product.name }
       </MyTableCell>
       <MyTableCell>
-        <ProductStatus status={productBasic.status}/>
+        <ProductStatus status={product.status}/>
       </MyTableCell>
       <MyTableCell width={114}>
-        <ProductTargetChip target={productBasic.target}/>
+        <ProductTargetChip target={product.target}/>
       </MyTableCell>
       <MyTableCell>
-        {item.brandRefCode}
+        {item?.brandRefCode}
       </MyTableCell>
       <MyTableCell>
-        <MarketCodeChip label={item.marketCode}/>
+        <MarketCodeChip label={item?.marketCode}/>
       </MyTableCell>
       <MyTableCell>
-        {item.newSizeName || productSize.sizeName}
-      </MyTableCell>
-      <MyTableCell width={160}>
-        {pcc.name}
+        {item?.newSizeName || size.name}
       </MyTableCell>
       <MyTableCell>
-        <PriceDisplay item={last(pcc.prices)}/>
+        <PriceDisplay item={last(item?.prices)}/>
       </MyTableCell>
       <MyTableCell width={200}>
-        { join(map(pcc.components, it => it.axCode), ', ') }
+        { join(map(item?.components, it => it.axCode), ', ') }
       </MyTableCell>
       <MyTableCell>
-        {getFromExtraInfomations('Bulk Leadtime')?.detail}
+        {getFromSizeInfomations('Bulk Leadtime')?.detail}
       </MyTableCell>
       <MyTableCell>
-        {getFromExtraInfomations('Mold Charge')?.detail}
+        {getFromSizeInfomations('Mold Charge')?.detail}
       </MyTableCell>
       <MyTableCell>
-        {getFromExtraInfomations('Bulk Order MOQ')?.detail}
+        {getFromSizeInfomations('Bulk Order MOQ')?.detail}
       </MyTableCell>
       <MyTableCell>
-        {getFromExtraInfomations('Bulk Color MOQ')?.detail}
+        {getFromSizeInfomations('Bulk Color MOQ')?.detail}
       </MyTableCell>
       <MyTableCell>
         {getFromTestings('Pull Test')?.result}
@@ -98,17 +94,17 @@ export default function TableViewSales({keyword, filterSettings}) {
 
   useEffect(() => {
     const relatedPPCForSales = filterSettings?.marketCodes ? 
-      filter(demoPCCForSales, it => includes(filterSettings.marketCodes, it.marketCode)):
-      demoPCCForSales
-    setSales(map(relatedPPCForSales, it => getPCCForSalesDetails(it)))
+      filter(demoOnSales, it => includes(filterSettings.marketCodes, it.marketCode)):
+      demoOnSales
+    setSales(map(relatedPPCForSales, it => getOnSalesDetails(it)))
   }, [keyword, filterSettings])
 
   return (
     <TableViewItems
       headers={[
         '', t('name'), t('status'), t('target'),
-        t('brandRefCode'), t('marketCode'), t('size'), t('pccName'),
-        t('price'), t('axCodes'), t('bulkLeadtime'), t('moldCharge'), t('bulkOrderMoq'), t('bulkColorMoq'),
+        t('brandRefCode'), t('marketCode'), t('size'), t('price'), t('axCodes'), 
+        t('bulkLeadtime'), t('moldCharge'), t('bulkOrderMoq'), t('bulkColorMoq'),
         t('pullTest'), t('needleDetection'), t('common:lastUpdate')
       ]}
       items={sales}

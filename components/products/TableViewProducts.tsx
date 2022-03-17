@@ -67,7 +67,7 @@ export default function TableViewProducts() {
     const allSizes = demoProductSizes
     setProducts(map(demoProductBasics, it => {
       const relatedSizes = filter(allSizes, size => size.productBasicId === it.id)
-      return {...it, sizes: map(relatedSizes, size => size.sizeName)}
+      return {...it, sizes: map(relatedSizes, size => size.name)}
     }))
   }, [])
 

@@ -9,8 +9,3 @@ export const recoilSalesFilterSettings = atom<any>({
   key: 'salesFilterSettings',
   default: null,
 })
-
-export const recoilTargetPCC = atom<any>({
-  key: 'targetPCC',
-  default: null,
-})

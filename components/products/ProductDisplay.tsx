@@ -1,4 +1,4 @@
-import { Container, Grid, Typography } from '@mui/material'
+import { Box, Grid, Typography } from '@mui/material'
 import { join, map } from 'lodash'
 import useTranslation from 'next-translate/useTranslation'
 import InformationTable from '../InformationTable'
@@ -9,7 +9,7 @@ import MarketCodeChip from './MarketCodeChip'
 import ProductStatus from './ProductStatus'
 import ProductTargetChip from './ProductTargetChip'
 
-function ProductBasicPartImage({product}) {
+function ProductDisplayImage({product}) {
   return (
     <Grid container justifyContent='center'>
       {Boolean(product.photo) &&
@@ -26,7 +26,7 @@ function ProductBasicPartImage({product}) {
   )
 }
 
-export function ProductBasicPartTable({product, newProductName='', salesMode=false}) {
+export function ProductDisplayTable({product, newProductName='', salesMode=false, designer=''}) {
   const { t } = useTranslation('products')
 
   return (
@@ -49,6 +49,7 @@ export function ProductBasicPartTable({product, newProductName='', salesMode=fal
               </Grid>
           }] :
           [],
+        ...Boolean(designer) ? [{ key: t('designer'), text: designer }] : [],
         ...Boolean(product.remarks) ? [{ key: t('remarks'), text: product.remarks }] : [],
         { key: t('common:lastUpdate'), text: <LastUpdate item={product}/> }
       ]}
@@ -56,12 +57,12 @@ export function ProductBasicPartTable({product, newProductName='', salesMode=fal
   )
 }
 
-export default function ProductBasicPart({product, newProductName='', salesMode=false}) {
+export default function ProductDisplay({product, newProductName='', salesMode=false}) {
   return (
     <>
-      <ProductBasicPartImage product={product}/>
+      <ProductDisplayImage product={product}/>
 
-      <Container maxWidth='md' sx={{p: 0, mt: 2}}>
+      <Box sx={{mt: 2}}>
         <Typography variant='h4'>{ newProductName || product.name }</Typography>
         
         <Typography 
@@ -73,8 +74,8 @@ export default function ProductBasicPart({product, newProductName='', salesMode=
           { product.description }
         </Typography>
       
-        {!salesMode && <ProductBasicPartTable product={product} newProductName={newProductName}/>}
-      </Container>
+        {!salesMode && <ProductDisplayTable product={product} newProductName={newProductName}/>}
+      </Box>
     </>
   )
 }

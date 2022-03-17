@@ -3,28 +3,20 @@ import { useState } from 'react'
 import { useSetRecoilState } from 'recoil'
 import { recoilAlert } from '../../../recoil/common'
 import UploadButton from '../../../components/UploadButton'
-import ProductSizesInput from '../../../components/products/ProductSizesInput'
-import ProductBasicInput from '../../../components/products/ProductBasicInput'
+import ProductInput from '../../../components/product-input/ProductInput'
+import SizesInput from '../../../components/product-input/SizesInput'
+import { useRouter } from 'next/router'
 
-export default function NewProduct() {
+export default function NewCustomProduct() {
   const { t } = useTranslation('products')
+  const router = useRouter()
   const setAlert = useSetRecoilState(recoilAlert)
 
   const [loading, setLoading] = useState(false)
   const [showError, setShowError] = useState(false)
-  const [product, setProduct] = useState({
-    name: '',
-    status: 'Completed',
-    description: '',
-    remarks: '',
-    target: 'Custom',
-    limitedMarketCodes: [],
-    photo: null,
-    threeDPhoto: null,
-    industries: [],
-  })
-  const [productSizes, setProductSizes] = useState([])
-  const [basicIsValid, setBasicIsValid] = useState(false)
+  const [product, setProduct] = useState(null)
+  const [productIsValid, setProductIsValid] = useState(false)
+  const [sizes, setSizes] = useState([])
   const [sizesIsValid, setSizesIsValid] = useState(false)
 
   function tryUpload() {
@@ -32,13 +24,14 @@ export default function NewProduct() {
     if (loading) {
       return
     }
-    if (!basicIsValid || !sizesIsValid) {
+    if (!productIsValid || !sizesIsValid) {
       setAlert(`error:${t('error:insufficientInfo')}`)
       window.scrollTo({top: 0, behavior: 'smooth'})
       return
     }
     setLoading(true)
     setTimeout(() => {
+      router.push('/products/1')
       setAlert(t('common:finish'))
       setLoading(false)
     }, 1000)
@@ -46,13 +39,13 @@ export default function NewProduct() {
 
   return (
     <>
-      <ProductBasicInput value={product} onChange={setProduct} showError={showError} onValid={setBasicIsValid}/>
+      <ProductInput value={product} onChange={setProduct} showError={showError} onValid={setProductIsValid}/>
 
-      <ProductSizesInput value={productSizes} onChange={setProductSizes} showError={showError} onValid={setSizesIsValid}/>
+      <SizesInput value={sizes} onChange={setSizes} showError={showError} onValid={setSizesIsValid}/>
 
       <UploadButton loading={loading} onClick={tryUpload}/>
     </>
   )
 }
 
-NewProduct.needLogin = true
+NewCustomProduct.needLogin = true

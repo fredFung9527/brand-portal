@@ -1,5 +1,5 @@
-import { Box, Divider, Grid, Paper, Typography } from '@mui/material'
-import { last } from 'lodash'
+import { Box, Divider, Grid, Paper, Tooltip, Typography } from '@mui/material'
+import { join, last, map } from 'lodash'
 import MyImage from '../MyImage'
 import MyLink from '../MyLink'
 import ProductStatus from '../products/ProductStatus'
@@ -7,15 +7,11 @@ import NeedleDetectionIcon from './NeedleDetectionIcon'
 import PriceDisplay from './PriceDisplay'
 
 export default function SalesCard({item}) {
-  const productBasic = item?.productBasic || {}
-  const productSize = item?.productSize || {}
-  const pcc = item?.pcc || {}
+  const product = item?.product || {}
+  const size = item?.size || {}
 
-  if (!item) {
-    return null
-  }
   return (
-    <MyLink to={`/sales/${item.id}`}>
+    <MyLink to={`/sales/${item?.id}`}>
       <Paper sx={{px: 2, pt: 2, pb: 1, position: 'relative', cursor: 'pointer'}}>
         <Box 
           sx={(theme) => 
@@ -26,7 +22,7 @@ export default function SalesCard({item}) {
               zIndex: 9
             })
           }>
-            <ProductStatus status={productBasic.status} noText/>
+            <ProductStatus status={product.status} noText/>
         </Box>
         <Box 
           sx={(theme) => 
@@ -38,29 +34,29 @@ export default function SalesCard({item}) {
             })
           }
         >
-          <NeedleDetectionIcon pcc={pcc}/>
+          <NeedleDetectionIcon item={item}/>
         </Box>
 
         <Grid container justifyContent='center'>
-          <MyImage src={productBasic.photo} width={150} height={150}/>
+          <MyImage src={product.photo} width={150} height={150}/>
         </Grid>
 
         <Grid container sx={{mt: 1}}>
           <Grid item xs>
             <Typography color='primary'>
-              {item.brandRefCode}
+              {item?.brandRefCode}
             </Typography>
           </Grid>
           <Grid item>
             <Typography color='primary'>
-              {item.marketCode}
+              {item?.marketCode}
             </Typography>
           </Grid>
         </Grid>
 
         <Divider sx={{my: 0.5}}/>
         <Typography fontWeight='bold' noWrap>
-          { item.newProductName || productBasic.name }
+          { item?.newProductName || product.name }
         </Typography>
 
         <Grid container alignItems='center'>
@@ -70,17 +66,21 @@ export default function SalesCard({item}) {
                 color: theme.palette.grayText.main
               })}
             >
-              {item.newSizeName || productSize.sizeName}<br/>{pcc.name}
+              {item?.newSizeName || size.name}
             </Typography>
           </Grid>
           <Grid item>
-            <PriceDisplay item={last(pcc.prices)}/>
+            <PriceDisplay item={last(item?.prices)}/>
           </Grid>
         </Grid>
 
-        <Typography align='right' noWrap>
-          {pcc.components && pcc.components[0]?.axCode}{pcc.components?.length > 1 ? `, +${pcc.components.length - 1}` : ''}
-        </Typography>
+        {item?.components?.length &&
+          <Tooltip title={join(map(item.components, it => it.axCode), ', ')}>
+            <Typography align='right' noWrap>
+              {item.components[0].axCode}{item.components?.length > 1 ? `, +${item.components.length - 1}` : ''}
+            </Typography>
+          </Tooltip>
+        }
       </Paper>
     </MyLink>
   )

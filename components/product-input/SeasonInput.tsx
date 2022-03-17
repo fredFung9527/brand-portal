@@ -25,7 +25,7 @@ const TextMask = forwardRef(
   }
 )
 
-export default function ProductSeasonInput({single, ...otherProps}: MyTextFieldProps & {single?: boolean}) {
+export default function SeasonInput({single, ...otherProps}: MyTextFieldProps & {single?: boolean}) {
   if (single) {
     return (
       <MyTextField

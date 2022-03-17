@@ -1,15 +1,16 @@
-import { AppBar, Box, Container, Grid, Toolbar, useMediaQuery, useTheme } from '@mui/material'
+import { AppBar, Box, Grid, Toolbar, useMediaQuery, useTheme, Zoom } from '@mui/material'
 import { isEmpty } from 'lodash'
 import NoResultHint from '../../components/NoResultHint'
-import ProductBasicPart from '../../components/products/ProductBasicPart'
+import ProductDisplay from '../../components/products/ProductDisplay'
 import MyTabs from '../../components/MyTabs'
-import { useRef, useState } from 'react'
-import ProductSizeCard from '../../components/products/ProductSizeCard'
+import { useEffect, useRef, useState } from 'react'
+import SizeCard from '../../components/products/SizeCard'
 import { getProductDetails } from '../../utils/products'
 import AppBarText from '../../components/products/AppBarText'
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney'
 import MyButton from '../../components/MyButton'
 import useTranslation from 'next-translate/useTranslation'
+import PageActions from '../../components/products/PageActions'
 
 export default function ProductDetail({product}) {
   const theme = useTheme()
@@ -17,11 +18,16 @@ export default function ProductDetail({product}) {
   const { t } = useTranslation('products')
 
   const [selectedSize, setSeletcedSize] = useState(null)
-  const [seletcedPCC, setSeletcedPCC] = useState(null)
+  const [open, setOpen] = useState(false)
+  useEffect(() => {
+    setOpen(false)
+    setTimeout(() => {
+      setOpen(true)
+    }, 200)
+  }, [selectedSize])
 
-  const productBasicRef = useRef(null)
-  const productSizeRef = useRef(null)
-  const pccRef = useRef(null)
+  const productRef = useRef(null)
+  const sizeRef = useRef(null)
 
   if (isEmpty(product)) {
     return (
@@ -33,9 +39,8 @@ export default function ProductDetail({product}) {
       <AppBar color='default' sx={{top: 'auto', bottom: 0}}>
         <Toolbar>
           <Grid container alignItems='center'>
-            <AppBarText text={product.name} innerRef={productBasicRef}/>&nbsp;/&nbsp;
-            <AppBarText text={selectedSize?.sizeName || '-'} innerRef={productSizeRef}/>&nbsp;/&nbsp;
-            <AppBarText text={seletcedPCC?.name || '-'} innerRef={pccRef}/>&nbsp;&nbsp;
+            <AppBarText text={product.name} innerRef={productRef}/>&nbsp;/&nbsp;
+            <AppBarText text={selectedSize?.name || '-'} innerRef={sizeRef}/>&nbsp;&nbsp;
             <MyButton
               to='/sales/new'
               size={isXs ? 'small' : 'medium'}
@@ -50,26 +55,30 @@ export default function ProductDetail({product}) {
         </Toolbar>
       </AppBar>
 
-      <div ref={productBasicRef}>
-        <ProductBasicPart product={product}/>
+      <div ref={productRef}>
+        <ProductDisplay product={product}/>
       </div>
 
-      <Container maxWidth='md' sx={{p: 0}}>
-        <MyTabs 
-          onChange={setSeletcedSize} 
-          items={product?.sizes}
-          textKey='sizeName'
-          sx={{mt: 1, mb: -1}}
-        />
-        <ProductSizeCard 
-          size={selectedSize} 
-          productMode
-          seletcedPCC={seletcedPCC}
-          setSeletcedPCC={setSeletcedPCC}
-          productSizeRef={productSizeRef}
-          pccRef={pccRef}
-        />
-      </Container>
+      <MyTabs 
+        onChange={setSeletcedSize} 
+        items={product?.sizes}
+        textKey='name'
+        sx={{mt: 1, mb: -1}}
+      />
+      <Zoom in={open}>
+        <div>
+          <SizeCard 
+            size={selectedSize} 
+            sizeRef={sizeRef}
+          />
+        </div>
+      </Zoom>
+
+      <PageActions 
+        editPath='/products/new'
+        clonePath='/products/new'
+        onRemove={null}
+      />
     </Box>
   )
 }

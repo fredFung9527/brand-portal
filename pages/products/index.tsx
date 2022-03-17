@@ -12,9 +12,8 @@ import MyAutocomplete from '../../components/select/MyAutocomplete'
 import { demoIndustries, demoMaterials, demoStatuses } from '../../demo/product'
 import useTranslation from 'next-translate/useTranslation'
 import { demoTargets } from '../../demo/brand'
-import ProductMarketCodeInput from '../../components/products/ProductMarketCodeInput'
-import ProductSeasonInput from '../../components/products/ProductSeasonInput'
-import { demoDesigners } from '../../demo/user'
+import MarketCodeInput from '../../components/product-input/MarketCodeInput'
+import ProductSeasonInput from '../../components/product-input/SeasonInput'
 
 const originalFilterSeettings = {
   statuses: [],
@@ -25,7 +24,6 @@ const originalFilterSeettings = {
   target: '',
   marketCodes: [],
   devSeasons: [],
-  effectiveSeasons: [],
   designers: [],
   minPullTest: '',
   maxPullTest: ''
@@ -91,7 +89,7 @@ function ProductFilterButton() {
           label: t('marketCodes'),
           type: 'custom',
           grid: { xs: 12, sm: 6 },
-          component: <ProductMarketCodeInput/>
+          component: <MarketCodeInput/>
         },
         {
           key: 'devSeasons',
@@ -101,18 +99,11 @@ function ProductFilterButton() {
           component: <ProductSeasonInput/>
         },
         {
-          key: 'effectiveSeasons',
-          label: t('effectiveSeasons'),
-          type: 'custom',
-          grid: { xs: 12, sm: 6 },
-          component: <ProductSeasonInput/>
-        },
-        {
           key: 'designers',
           label: t('designers'),
           type: 'custom',
           grid: { xs: 12, sm: 6 },
-          component: <MyAutocomplete freeSolo multiple items={demoDesigners}/>
+          component: <MyAutocomplete freeSolo multiple items={[]}/>
         },
         {
           key: 'minPullTest',

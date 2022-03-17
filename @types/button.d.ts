@@ -25,7 +25,8 @@ export interface MyMenuButtonProps {
 export interface DeleteButtonProps {
   title?: ReactElement,
   content?: ReactElement,
-  onRemove: () => void
+  onRemove: () => void,
+  disabled?: boolean
 }
 
 export interface MyIconLinkProps {

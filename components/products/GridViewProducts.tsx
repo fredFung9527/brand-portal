@@ -16,10 +16,7 @@ export default function GridViewProducts() {
       xs={6}
       sm={4}
       md={3}
-      page={page}
-      totalPage={totalPage}
       init={() => setProducts(demoProductBasics)}
-      onPage={setPage}
     />
   )
 }

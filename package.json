@@ -16,7 +16,6 @@
     "@react-three/drei": "^8.6.3",
     "@react-three/fiber": "^7.0.25",
     "axios": "^0.24.0",
-    "config": "^3.3.6",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "next": "12.0.4",

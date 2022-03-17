@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material'
-import { filter, forEach, isEmpty, map, some } from 'lodash'
-import { cloneElement, useCallback, useEffect, useState } from 'react'
+import { debounce, filter, forEach, isEmpty, map, some } from 'lodash'
+import { cloneElement, useCallback, useEffect, useRef, useState } from 'react'
 import { MyFormItem, MyFormProps } from '../../@types/input'
 import { list2Object } from '../../utils/common'
 import MyDatePicker from '../datetime/MyDatePicker'
@@ -12,27 +12,29 @@ export default function MyForm({items, onChange, onValid, showError, sx, columnS
   const [input, setInput] = useState(list2Object(items, 'key', 'default'))
   const [helperTexts, setHelperTexts] = useState({})
 
+  const debounceCall = useRef(
+    debounce((f) => f(), 500)
+  ).current
   useEffect(() => {
-    let newHelperTexts = {}
-    forEach(items, it => {
-      const isHidden = it.hidden && it.hidden(input)
-      if (!isHidden && it.rules?.length) {
-        for (const rule of it.rules) {
-          const result = rule(input[it.key], input)
-          if (result) {
-            newHelperTexts[it.key] = result
-            break
+    debounceCall(() => {
+      let newHelperTexts = {}
+      forEach(items, it => {
+        const isHidden = it.hidden && it.hidden(input)
+        if (!isHidden && it.rules?.length) {
+          for (const rule of it.rules) {
+            const result = rule(input[it.key], input)
+            if (result) {
+              newHelperTexts[it.key] = result
+              break
+            }
           }
         }
-      }
+      })
+
+      onChange && onChange(input)
+      onValid && onValid(!some(newHelperTexts, (value, key) => Boolean(value)))
+      setHelperTexts(newHelperTexts)
     })
-    if (onChange) {
-      onChange(input)
-    }
-    if (onValid) {
-      onValid(!some(newHelperTexts, (value, key) => Boolean(value)))
-    }
-    setHelperTexts(newHelperTexts)
   }, [input, updateHelper])
 
   const handleInput = useCallback((v, key) => {

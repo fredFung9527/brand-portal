@@ -4,6 +4,6 @@ export default function LastUpdate({item, mode='default'}) {
   const { t } = useTranslation('common')
 
   return (
-    <span>{item.lastUpdatedBy} {mode === 'default' ? t('updatedOn') : ''} {item.lastUpdated}</span>
+    <span>{item?.updatedBy} {mode === 'default' ? t('updatedOn') : ''} {item?.updated}</span>
   )
 }

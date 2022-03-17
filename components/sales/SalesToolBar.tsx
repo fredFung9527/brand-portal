@@ -8,7 +8,7 @@ import FilterButton from '../FilterButton'
 import Router, { useRouter } from 'next/router'
 import MyAutocomplete from '../select/MyAutocomplete'
 import useTranslation from 'next-translate/useTranslation'
-import ProductMarketCodeInput from '../products/ProductMarketCodeInput'
+import MarketCodeInput from '../product-input/MarketCodeInput'
 import { useRecoilState } from 'recoil'
 import { recoilSalesFilterSettings, recoilSalesKeyword } from '../../recoil/sales'
 import { find, omit } from 'lodash'
@@ -57,7 +57,7 @@ function SalesFilterButton({summaryMode}) {
             label: t('marketCodes'),
             type: 'custom',
             grid: { xs: 12, sm: 6 },
-            component: <ProductMarketCodeInput/>
+            component: <MarketCodeInput/>
           }] as any,
         {
           key: 'brandRefCodes',

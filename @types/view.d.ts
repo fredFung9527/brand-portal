@@ -1,13 +1,10 @@
 import { ReactElement } from 'react'
 
 export interface GridViewItemsProps {
-  page: number,
-  totalPage: number,
   items: any[],
   keyKey?: string,
   init?: () => void,
   renderItem: (item: any) => ReactElement,
-  onPage: (v: number) => void,
   xs?: number,
   sm?: number,
   md?: number,

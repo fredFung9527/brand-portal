@@ -1,14 +1,10 @@
 import CheckIcon from '@mui/icons-material/Check'
-import { Box, Collapse, Grid, IconButton, Paper, Step, StepLabel, Stepper, Typography, useTheme } from '@mui/material'
+import { Box, Paper, Step, StepLabel, Stepper, Typography, useTheme } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector'
-import { forEachRight, map, takeRight } from 'lodash'
+import { forEach, forEachRight, map, takeRight, groupBy } from 'lodash'
 import PriceDisplay from './PriceDisplay'
-import SubTitle from '../SubTitle'
 import useTranslation from 'next-translate/useTranslation'
-import { useState } from 'react'
-import ExpandLessIcon from '@mui/icons-material/ExpandLess'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import SimpleTable from '../SimpleTable'
 import LastUpdate from '../products/LastUpdate'
 
@@ -46,51 +42,41 @@ function OldPriceIcon() {
 
 export default function PriceHistory({prices}) {
   const { t } = useTranslation('products')
-  const last3: any = takeRight(prices, 3)
-  const [open, setOpen] = useState(false)
 
-  let tableData = []
-  forEachRight(prices, it => {
-    const lastUpdate = <LastUpdate item={it} mode='simple'/>
-    const price = <PriceDisplay item={it}/>
-    tableData.push([it.season, price, lastUpdate])
+  const groupByCurrency = groupBy(prices, it => it.currency)
+  let data = []
+  forEach(groupByCurrency, (list, currency) => {
+    let tableData = []
+    forEachRight(list, it => {
+      const lastUpdate = <LastUpdate item={it} mode='simple'/>
+      const price = <PriceDisplay item={it}/>
+      tableData.push([it.season, price, lastUpdate])
+    })
+
+    data.push({
+      currency,
+      last3: takeRight(list, 3),
+      tableData
+    })
   })
 
   return (
     <>
-      <SubTitle>{t('price')}</SubTitle>
-      <Paper>
-        <Box sx={{position: 'relative', px: 2, pt: 2, pb: 1}}>
-          <Stepper alternativeLabel connector={<MyConnector/>}>
-            {map(last3, (it, idx) =>
-              <Step key={idx}>
-                <StepLabel StepIconComponent={(Number(idx) === last3.length - 1) ? () => <CheckIcon color='info'/> : OldPriceIcon}>
-                  <Typography sx={(theme) => ({color: theme.palette.grayText.main})}>{it.season}</Typography>
-                  <PriceDisplay item={it}/>
-                </StepLabel>
-              </Step>
-            )}
-          </Stepper>
-          <Grid 
-            container 
-            alignItems='center'
-            justifyContent='flex-end'
-            sx={{
-              px: 0.5,
-              position: 'absolute',
-              left: 0,
-              top: 0,
-              zIndex: 9,
-              height: '100%'
-          }}
-          >
-            <IconButton onClick={() => setOpen(!open)}>
-              {open ? <ExpandLessIcon/> : <ExpandMoreIcon/>}
-            </IconButton>
-          </Grid>
-        </Box>
+      {map(data, (item, jdx) =>
+        <Paper key={item.currency} sx={{mt: jdx ? 2: 0}}>
+          <Box sx={{position: 'relative', px: 2, pt: 2, pb: 1}}>
+            <Stepper alternativeLabel connector={<MyConnector/>}>
+              {map(item.last3, (it, idx) =>
+                <Step key={idx}>
+                  <StepLabel StepIconComponent={(Number(idx) === item.last3.length - 1) ? () => <CheckIcon color='info'/> : OldPriceIcon}>
+                    <Typography sx={(theme) => ({color: theme.palette.grayText.main})}>{it.season}</Typography>
+                    <PriceDisplay item={it}/>
+                  </StepLabel>
+                </Step>
+              )}
+            </Stepper>
+          </Box>
 
-        <Collapse in={open}>
           <SimpleTable
             component='div'
             headerColor='info'
@@ -99,10 +85,10 @@ export default function PriceHistory({prices}) {
               { text: t('price') },
               { text: t('common:lastUpdate') },
             ]}
-            data={tableData}
+            data={item.tableData}
           />
-        </Collapse>
-      </Paper>
+        </Paper>
+      )}
     </>
   )
 }

@@ -26,6 +26,7 @@
     "/sales": "Sales",
     "/sales/[]": "Sales Details",
     "/sales/new": "New Sales",
+    "/sales/clone": "Clone Sales",
     "/sales/brand": "Brand Sales"
   },
   "login": {

@@ -4,7 +4,7 @@ import { useDialog } from './providers/DialogProvider'
 import useTranslation from 'next-translate/useTranslation'
 import { DeleteButtonProps } from '../@types/button'
 
-export default function DeleteButton({onRemove, title, content}: DeleteButtonProps) {
+export default function DeleteButton({onRemove, title, content, disabled}: DeleteButtonProps) {
   const { t } = useTranslation('common')
   const [openDialog] = useDialog()
 
@@ -18,6 +18,14 @@ export default function DeleteButton({onRemove, title, content}: DeleteButtonPro
     if (confirm) {
       onRemove && onRemove()
     }
+  }
+
+  if (disabled) {
+    return (
+      <IconButton color='secondary' disabled>
+        <DeleteIcon/>
+      </IconButton>
+    )
   }
 
   return (

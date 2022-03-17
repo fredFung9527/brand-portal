@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { demoMyBrands } from '../../demo/user'
 import { filter, includes, map } from 'lodash'
-import { demoPCCForSales } from '../../demo/sales'
+import { demoOnSales } from '../../demo/sales'
 import SalesToolBar from '../../components/sales/SalesToolBar'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { recoilSalesFilterSettings, recoilSalesKeyword } from '../../recoil/sales'
@@ -18,7 +18,7 @@ function BrandSummary() {
   const [data, setData] = useState([])
   useEffect(() => {
     const result = map(demoMyBrands, brand => {
-      const count = filter(demoPCCForSales, it => includes(brand.marketCodes, it.marketCode)).length
+      const count = filter(demoOnSales, it => includes(brand.marketCodes, it.marketCode)).length
       return {...brand, count}
     })
     setData(result)
@@ -32,7 +32,7 @@ function BrandSummary() {
   return (
     <Grid container spacing={2}>
       {map(data, (brand, idx) =>
-        <Grid key={brand.name} item xs={12} sm={6} md={4}>
+        <Grid key={brand.name} item xs={6} sm={3} md={2}>
           <Button
             size='large'
             color={colors[Math.floor(idx / 2) % colors.length]}
