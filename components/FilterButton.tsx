@@ -58,7 +58,7 @@ export default function FilterButton({value, initValue, onChange, items}: {value
     <>
       <Tooltip title={t('filter')}>
         <IconButton color='primary' onClick={openFilter}>
-          <TuneIcon fontSize='large'/>
+          <TuneIcon/>
         </IconButton>
       </Tooltip>
     </>

@@ -1,17 +1,15 @@
-import { Button, Grid, Paper, Typography } from '@mui/material'
+import { Grid, Paper } from '@mui/material'
 import useTranslation from 'next-translate/useTranslation'
 import MyAutocomplete from '../select/MyAutocomplete'
 import SubTitle from '../SubTitle'
 import { demoIndustries } from '../../demo/product'
-import MyFilePicker from '../MyFilePicker'
-import MyImage from '../MyImage'
-import My3DViewer from '../My3DViewer'
 import MarketCodeInput from './MarketCodeInput'
 import { MyInputProps } from '../../@types/input'
 import { useEffect, useRef, useState } from 'react'
 import MyTextField from '../form/MyTextField'
 import MySelect from '../select/MySelect'
 import { debounce } from 'lodash'
+import MyDropzone from '../MyDropzone'
 
 export default function ProductInput({
   value, onChange, showError, onValid, salesMode, disableEditProduct, disableEditSize
@@ -24,8 +22,7 @@ export default function ProductInput({
   const [remarks, setRemarks] = useState(value?.remarks || '')
   const [target, setTarget] = useState(value?.target || 'Custom')
   const [limitedMarketCodes, setLimitedMarketCodes] = useState(value?.limitedMarketCodes || [])
-  const [photo, setPhoto] = useState(value?.photo || null)
-  const [threeDPhoto, setThreeDPhoto] = useState(value?.threeDPhoto || null)
+  const [documents, setDocuments] = useState(value?.documents || [])
   const [industries, setIndustries] = useState(value?.industries || [])
   const [newProductName, setNewProductName] = useState(value?.newProductName || '')
   const [designer, setDesigner] = useState(value?.designer || '')
@@ -43,12 +40,12 @@ export default function ProductInput({
   useEffect(() => {
     onChangeDebounce({
       name, status, description, remarks, limitedMarketCodes, 
-      photo, threeDPhoto, industries, newProductName, designer
+      industries, newProductName, designer, documents
     })
     onValidDebounce(name && status && (salesMode || industries.length) &&
       (target !== 'Custom' || limitedMarketCodes.length)
     )
-  }, [name, status, description, remarks, limitedMarketCodes, photo, threeDPhoto, industries, newProductName, designer])
+  }, [name, status, description, remarks, limitedMarketCodes, industries, newProductName, designer, documents])
 
   return (
     <>
@@ -140,32 +137,13 @@ export default function ProductInput({
           </Grid>
         </Grid>
 
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <Typography sx={(theme) => ({color: theme.palette.grayLabelText.main})}>
-              {t('photo')}
-            </Typography>
-            <Button fullWidth disabled={disableEditProduct}>
-              <MyFilePicker onChange={setPhoto}>
-                <MyImage src={photo || '/images/photo.png'} width={150} height={150}/>
-              </MyFilePicker>
-            </Button>
-          </Grid>
-
-          <Grid item xs={12} sm={6}>
-            <Typography sx={(theme) => ({color: theme.palette.grayLabelText.main})}>
-              {t('threeDPhoto')}
-            </Typography>
-            <Button fullWidth disabled={disableEditProduct}>
-              <MyFilePicker onChange={setThreeDPhoto} accept='.gltf'>
-                {Boolean(threeDPhoto) ?
-                  <My3DViewer src={threeDPhoto} height={150}/> : 
-                  <MyImage src='/images/3d.png' width={150} height={150}/>
-                }
-              </MyFilePicker>
-            </Button>
-          </Grid>
-        </Grid>
+        <MyDropzone 
+          label={t('photos')} 
+          value={documents} 
+          onChange={setDocuments}
+          accept='image/*,.gltf,.obj'
+          disabled={disableEditProduct}
+        />
       </Paper>
     </>
   )

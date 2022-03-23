@@ -148,7 +148,7 @@ export default function TestingsInput({
               <AddCircleOutlineIcon/>
             </IconButton> : 
             <Tooltip title={t('common:add')}>
-              <IconButton color='primary' onClick={() => handleAction('add')}>
+              <IconButton color='info' onClick={() => handleAction('add')}>
                 <AddCircleOutlineIcon/>
               </IconButton>
             </Tooltip>

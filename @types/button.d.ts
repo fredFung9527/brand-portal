@@ -26,7 +26,8 @@ export interface DeleteButtonProps {
   title?: ReactElement,
   content?: ReactElement,
   onRemove: () => void,
-  disabled?: boolean
+  disabled?: boolean,
+  textMode?: boolean
 }
 
 export interface MyIconLinkProps {

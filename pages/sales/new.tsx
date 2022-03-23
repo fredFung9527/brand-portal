@@ -136,6 +136,8 @@ export default function NewSales({
             onValid={setComponentsPartIsValid} 
             showError={showError}
             disabled={disableEditSize}
+            salesMode
+            marketCode={salesPart?.marketCode}
           />
         </Paper>
       </Box>
@@ -146,6 +148,7 @@ export default function NewSales({
             onChange={setPricesPart} 
             onValid={setPricesPartIsValid} 
             showError={showError}
+            marketCode={salesPart?.marketCode}
           />
         </Paper>
       </Box>

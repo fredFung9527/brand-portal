@@ -1,3 +1,4 @@
+import { AppBar, Box, Toolbar, useMediaQuery, useTheme } from '@mui/material'
 import { forEach, isEmpty, join, last, map, sortBy } from 'lodash'
 import useTranslation from 'next-translate/useTranslation'
 import { useState } from 'react'
@@ -8,6 +9,8 @@ import LastUpdate from '../../components/products/LastUpdate'
 import MarketCodeChip from '../../components/products/MarketCodeChip'
 import PageActions from '../../components/products/PageActions'
 import ProductDisplay, { ProductDisplayTable } from '../../components/products/ProductDisplay'
+import ColorsDisplay from '../../components/sales/ColorsDisplay'
+import ComponentsDisplay from '../../components/sales/ComponentsDisplay'
 import PriceDisplay from '../../components/sales/PriceDisplay'
 import PriceHistory from '../../components/sales/PriceHistory'
 import SimpleTable from '../../components/SimpleTable'
@@ -17,33 +20,37 @@ function AbstractPart({item}) {
   const { t } = useTranslation('products')
 
   return (
-    <InformationTable
-      data={[
-        { 
-          key: t('marketCode'), 
-          text: <MarketCodeChip label={item?.marketCode}/>
-        },
-        { 
-          key: t('brandRefCode'), 
-          text: item?.brandRefCode
-        },
-        { 
-          key: t('devSeason'), 
-          text: item?.size?.devSeason
-        },
-        { 
-          key: t('industries'), 
-          text: join(item?.product?.industries, ', ')
-        },
-        { 
-          key: t('price'), 
-          text: <PriceDisplay item={last(item?.prices)}/>
-        },
-        { key: t('size'), text: item?.newSizeName || item?.size?.name },
-        { key: t('axCodes'), text: join(map(item?.components, it => it.axCode), ', ') },
-        ...Boolean(item?.remarks) ? [{ key: t('remarks'), text: item?.remarks }] : []
-      ]}
-    />
+    <>
+      <ProductDisplay product={item?.product} newProductName={item.newProductName} salesMode/>
+
+      <InformationTable
+        data={[
+          { 
+            key: t('marketCode'), 
+            text: <MarketCodeChip label={item?.marketCode}/>
+          },
+          { 
+            key: t('brandRefCode'), 
+            text: item?.brandRefCode
+          },
+          { 
+            key: t('devSeason'), 
+            text: item?.size?.devSeason
+          },
+          { 
+            key: t('industries'), 
+            text: join(item?.product?.industries, ', ')
+          },
+          { 
+            key: t('price'), 
+            text: <PriceDisplay item={last(item?.prices)}/>
+          },
+          { key: t('size'), text: item?.newSizeName || item?.size?.name },
+          { key: t('axCodes'), text: join(map(item?.components, it => it.axCode), ', ') },
+          ...Boolean(item?.remarks) ? [{ key: t('remarks'), text: item?.remarks }] : []
+        ]}
+      />
+    </>
   )
 }
 
@@ -76,32 +83,6 @@ function SizePart({item}) {
   )
 }
 
-function ComponentsPart({components}) {
-  const { t } = useTranslation('products')
-
-  let tableData = []
-  forEach(components, it => {
-    const lastUpdate = <LastUpdate item={it} mode='simple'/>
-    tableData.push([it.axCode, it.factory, it.type, join(it.materials, ', '), lastUpdate])
-    if (it.remarks) {
-      tableData.push([it.remarks])
-    }
-  })
-
-  return (
-    <SimpleTable
-      headers={[
-        { text: t('axCode') },
-        { text: t('factory') },
-        { text: t('componentType') },
-        { text: t('materials') },
-        { text: t('common:lastUpdate') },
-      ]}
-      data={tableData}
-    />
-  )
-}
-
 function TestingsPart({testings}) {
   const { t } = useTranslation('products')
 
@@ -116,34 +97,10 @@ function TestingsPart({testings}) {
 
   return (
     <SimpleTable
-      headerColor='success'
+      headerColor='info'
       headers={[
         { text: t('type') },
         { text: t('result') },
-        { text: t('common:lastUpdate') },
-      ]}
-      data={tableData}
-    />
-  )
-}
-
-function ColorsPart() {
-  const { t } = useTranslation('products')
-
-  const tableData = [
-    ['S23923', 'Approved', 'Mid Grey', 'rPET', '146-02342-000013', 'Fred Fung 01/03/2022'],
-    ['S11273F', 'Dipping', 'Light Grey', 'rPET', 'Light Grey', 'Fred Fung 01/03/2022']
-  ]
-
-  return (
-    <SimpleTable
-      headerColor='error'
-      headers={[
-        { text: t('colorCode') },
-        { text: t('status') },
-        { text: t('name') },
-        { text: t('material') },
-        { text: t('axCode') },
         { text: t('common:lastUpdate') },
       ]}
       data={tableData}
@@ -162,6 +119,7 @@ function OthersPart({sizeInfomations}) {
 
   return (
     <SimpleTable
+      headerColor='warning'
       headers={[
         { text: t('type') },
         { text: t('detail') },
@@ -173,6 +131,8 @@ function OthersPart({sizeInfomations}) {
 }
 
 export default function SalesDetail({item}) {
+  const theme = useTheme()
+  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
   const { t } = useTranslation('products')
 
   const tabs = [
@@ -193,24 +153,34 @@ export default function SalesDetail({item}) {
     )
   }
   return (
-    <>
-      <ProductDisplay product={item?.product} newProductName={item.newProductName} salesMode/>
+    <Box sx={{mb: isXs ? '56px' : '64px'}}>
+      <AppBar color='default' sx={{top: 'auto', bottom: 0}}>
+        <Toolbar>
+          {item?.newProductName || item?.product?.name}&nbsp;/&nbsp;
+          {item?.newSizeName || item?.size?.name}&nbsp;/&nbsp;
+          {item?.marketCode}&nbsp;/&nbsp;
+          {item?.brandRefCode}
+      </Toolbar>
+      </AppBar>
 
       <MyTabs value={tab} onChange={setTab} items={tabs} sx={{mb: 2}}/>
       {tab === 'abstract' && <AbstractPart item={item}/>}
-      {tab === 'product' && 
-        <ProductDisplayTable 
-          product={item?.product} 
-          newProductName={item?.newProductName}
-          designer={item?.size?.designer}
-          salesMode
-        />
+      {tab === 'product' &&
+        <>
+          <ProductDisplay product={item?.product} newProductName={item.newProductName} salesMode/>
+          <ProductDisplayTable 
+            product={item?.product} 
+            newProductName={item?.newProductName}
+            designer={item?.size?.designer}
+            salesMode
+          />
+        </>
       }
       {tab === 'size' && <SizePart item={item}/>}
-      {tab === 'components' && <ComponentsPart components={item?.components}/>}
+      {tab === 'components' && <ComponentsDisplay components={item?.components}/>}
       {tab === 'prices' && <PriceHistory prices={item?.prices}/>}
       {tab === 'testings' && <TestingsPart testings={item?.testings}/>}
-      {tab === 'colors' && <ColorsPart/>}
+      {tab === 'colors' && <ColorsDisplay marketCode={item?.marketCode} components={item?.components}/>}
       {tab === 'others' && <OthersPart sizeInfomations={item?.sizeInfomations}/>}
 
       <PageActions 
@@ -218,7 +188,7 @@ export default function SalesDetail({item}) {
         clonePath='/sales/clone?id=1'
         onRemove={null}
       />
-    </>
+    </Box>
   )
 }
 

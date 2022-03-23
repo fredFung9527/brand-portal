@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material'
+import { Button, Divider, Grid } from '@mui/material'
 import { useCallback, useEffect } from 'react'
 import MyToggle from '../MyToggle'
 import GridViewIcon from '@mui/icons-material/GridView'
@@ -11,13 +11,53 @@ import useTranslation from 'next-translate/useTranslation'
 import MarketCodeInput from '../product-input/MarketCodeInput'
 import { useRecoilState } from 'recoil'
 import { recoilSalesFilterSettings, recoilSalesKeyword } from '../../recoil/sales'
-import { find, omit } from 'lodash'
+import { find, map, omit } from 'lodash'
 import { demoMyBrands } from '../../demo/user'
+import MyCheckBox from '../MyCheckBox'
+import { useDialog } from '../providers/DialogProvider'
+import ExportIcon from '../ExportIcon'
 
 const originalFilterSeettings = {
   marketCodes: [],
   brandRefCodes: [],
   axCodes: []
+}
+
+function ExportButton() {
+  const { t } = useTranslation('products')
+  const [openDialog, closeDialog] = useDialog()
+  const combinations = ['All', 'Empty', 'Set A', 'Set B']
+  const fields = ['name', 'status', 'description', 'remarks', 'target', 'prices']
+
+  function onClick() {
+    openDialog({
+      title: t('common:export'),
+      content:
+        <>
+          <Grid container columnSpacing={2}>
+            {map(combinations, key =>
+              <Grid item key={key} xs={6} sm={4} md={3}>
+                <MyCheckBox label={key} hideHelperText/>
+              </Grid>
+            )}
+          </Grid>
+          <Divider sx={{my: 1}}/>
+          <Grid container columnSpacing={2}>
+            {map(fields, key =>
+              <Grid item key={key} xs={6} sm={4} md={3}>
+                <MyCheckBox label={t(key)} hideHelperText/>
+              </Grid>
+            )}
+          </Grid>
+        </>,
+      actions:
+        <Button color='primary' onClick={() => closeDialog()}>{t('common:confirm')}</Button>
+    })
+  }
+
+  return (
+    <ExportIcon onClick={onClick}/>
+  )
 }
 
 function SalesFilterButton({summaryMode}) {
@@ -109,6 +149,11 @@ export default function SalesToolBar({mode=null, setMode=null, summaryMode=false
       <Grid item>
         <SalesFilterButton summaryMode={summaryMode}/>
       </Grid>
+      {!summaryMode &&
+        <Grid item>
+          <ExportButton/>
+        </Grid>
+      }
     </Grid>
   )
 }

@@ -11,6 +11,9 @@ import { addTempId } from '../../utils/common'
 import ComponentsInput from './ComponentsInput'
 import TestingsInput from './TestingsInput'
 import SizeDetailsInput from './SizeDetailsInput'
+import { checkSeasonOrYear } from '../../utils/rules'
+import MyDropzone from '../MyDropzone'
+import SuggestPricesInput from './SuggestPricesInput'
 
 function SingleItem({
   value, onChange, showError, onValid, isGeneral
@@ -27,16 +30,29 @@ function SingleItem({
   const [testingsIsValid, setTestingsIsValid] = useState(false)
   const [sizeDetails, setSizeDetails] = useState(value?.sizeDetails || [])
   const [sizeDetailsIsValid, setSizeDetailsIsValid] = useState(false)
+  const [documents, setDocuments] = useState(value?.documents || [])
+  const [suggestPrices, setSuggestPrices] = useState(value?.suggestPrices || [])
+  const [suggestPricesIsValid, setSuggestPricesIsValid] = useState(false)
 
   const debounceCall = useRef(
     debounce((f) => f(), 500)
   ).current
   useEffect(() => {
     debounceCall(() => {
-      onChange({name, devSeason, designer, remarks, components, testings, sizeDetails})
-      onValid(Boolean(name) && componentsIsValid && testingsIsValid && (!isGeneral || sizeDetailsIsValid))
+      onChange({
+        name, devSeason, designer, remarks, components, testings, 
+        sizeDetails, documents, suggestPrices
+      })
+      onValid(
+        Boolean(name) && componentsIsValid && testingsIsValid && 
+        (!isGeneral || (sizeDetailsIsValid && suggestPricesIsValid)) && (!devSeason || checkSeasonOrYear(devSeason))
+      )
     })
-  }, [name, devSeason, designer, remarks, components, componentsIsValid, testings, testingsIsValid, sizeDetails, sizeDetailsIsValid])
+  }, [
+    name, devSeason, designer, remarks, components, componentsIsValid, 
+    testings, testingsIsValid, sizeDetails, sizeDetailsIsValid, documents,
+    suggestPrices, suggestPricesIsValid
+  ])
 
   return (
     <>
@@ -56,7 +72,8 @@ function SingleItem({
             label={t('devSeason')}
             value={devSeason}
             onChange={setDevSeason}
-            single
+            error={showError && Boolean(devSeason) && !checkSeasonOrYear(devSeason)}
+            helperText={showError && Boolean(devSeason) && !checkSeasonOrYear(devSeason) && t('error:invalidSeason')}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -73,6 +90,7 @@ function SingleItem({
         onChange={setComponents}
         showError={showError}
         onValid={setComponentsIsValid}
+        isGeneral={isGeneral}
       />
 
       <Divider sx={{my: 2}}/>
@@ -92,6 +110,14 @@ function SingleItem({
             showError={showError}
             onValid={setSizeDetailsIsValid}
           />
+
+          <Divider sx={{my: 2}}/>
+          <SuggestPricesInput
+            value={suggestPrices} 
+            onChange={setSuggestPrices} 
+            onValid={setSuggestPricesIsValid} 
+            showError={showError}
+          />
         </>
       }
 
@@ -101,6 +127,13 @@ function SingleItem({
         value={remarks}
         onChange={setRemarks}
         multiline
+      />
+
+      <MyDropzone 
+        label={t('attachments')} 
+        value={documents} 
+        onChange={setDocuments}
+        listView
       />
     </>
   )

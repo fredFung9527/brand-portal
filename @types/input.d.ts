@@ -91,11 +91,14 @@ export interface MyFormProps {
 }
 
 export interface MyFilePickerProps {
+  label?: string,
+  value?: any,
   sizeLimit?: number,
   onChange?: (v) => void,
   multiple?: boolean,
   accept?: string,
-  children?: ReactElement
+  children?: ReactElement,
+  disabled?: boolean
 }
 
 export interface MyToggleItem {

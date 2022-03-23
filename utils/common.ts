@@ -1,4 +1,4 @@
-import { forEach } from 'lodash'
+import { forEach, includes } from 'lodash'
 import { User } from '../@types/user'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -30,4 +30,11 @@ export function numberWithCommas(v) {
 
 export function addTempId(v) {
   return {...v, tempId: uuidv4()}
+}
+
+export function hasKeyword(text, keyword) {
+  if (!text || !keyword) {
+    return false
+  }
+  return includes(String(text).toLowerCase(), String(keyword).toLowerCase())
 }

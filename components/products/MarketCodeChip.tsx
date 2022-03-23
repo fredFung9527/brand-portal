@@ -32,6 +32,7 @@ export default function MarketCodeChip({label}) {
             { key: t('market-code:advisor'), text: theItem.advisor },
             { key: t('market-code:developer'), text: theItem.developer },
           ]}
+          component='div'
         />
     })
   }

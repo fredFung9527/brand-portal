@@ -3,8 +3,9 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import { useDialog } from './providers/DialogProvider'
 import useTranslation from 'next-translate/useTranslation'
 import { DeleteButtonProps } from '../@types/button'
+import MyButton from './MyButton'
 
-export default function DeleteButton({onRemove, title, content, disabled}: DeleteButtonProps) {
+export default function DeleteButton({onRemove, title, content, disabled, textMode}: DeleteButtonProps) {
   const { t } = useTranslation('common')
   const [openDialog] = useDialog()
 
@@ -18,6 +19,19 @@ export default function DeleteButton({onRemove, title, content, disabled}: Delet
     if (confirm) {
       onRemove && onRemove()
     }
+  }
+
+  if (textMode) {
+    return (
+      <MyButton 
+        color='secondary'
+        startIcon={<DeleteIcon/>}
+        onClick={tryConfirm}
+        disabled={disabled}
+      >
+        {t('delete')}
+      </MyButton>
+    )
   }
 
   if (disabled) {

@@ -1,33 +1,75 @@
-import { AppBar, Box, Grid, Toolbar, useMediaQuery, useTheme, Zoom } from '@mui/material'
-import { isEmpty } from 'lodash'
+import { Divider} from '@mui/material'
+import { isEmpty, map, find } from 'lodash'
 import NoResultHint from '../../components/NoResultHint'
 import ProductDisplay from '../../components/products/ProductDisplay'
 import MyTabs from '../../components/MyTabs'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import SizeCard from '../../components/products/SizeCard'
 import { getProductDetails } from '../../utils/products'
-import AppBarText from '../../components/products/AppBarText'
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney'
-import MyButton from '../../components/MyButton'
 import useTranslation from 'next-translate/useTranslation'
 import PageActions from '../../components/products/PageActions'
+import ComponentsDisplay from '../../components/sales/ComponentsDisplay'
+
+function SizesPart({sizes}) {
+  const tabs = map(sizes, it => ({ text: it.name, value: it.id}))
+  const [tab, setTab] = useState(tabs[0]?.value || '')
+  const [selectedSize, setSeletcedSize] = useState({})
+
+  useEffect(() => {
+    setSeletcedSize(find(sizes, it => it.id === tab))
+  }, [tab])
+
+  return (
+    <>
+      <Divider sx={{mb: 2}}/>
+      <MyTabs
+        value={tab}
+        onChange={setTab} 
+        items={tabs}
+      />
+
+      <SizeCard 
+        size={selectedSize} 
+      />
+    </>
+  )
+}
+
+function ComponentsPart({sizes}) {
+  const tabs = map(sizes, it => ({ text: it.name, value: it.id}))
+  const [tab, setTab] = useState(tabs[0]?.value || '')
+  const [selectedSize, setSeletcedSize] = useState<any>(sizes[0] || {})
+
+  useEffect(() => {
+    setSeletcedSize(find(sizes, it => it.id === tab))
+  }, [tab])
+
+  return (
+    <>
+      <Divider sx={{mb: 2}}/>
+      <MyTabs
+        value={tab}
+        onChange={setTab} 
+        items={tabs}
+        sx={{mb: 2}}
+      />
+
+      <ComponentsDisplay components={selectedSize.components} isGeneral/>
+    </>
+  )
+}
 
 export default function ProductDetail({product}) {
-  const theme = useTheme()
-  const isXs = useMediaQuery(theme.breakpoints.only('xs'))
   const { t } = useTranslation('products')
 
-  const [selectedSize, setSeletcedSize] = useState(null)
-  const [open, setOpen] = useState(false)
-  useEffect(() => {
-    setOpen(false)
-    setTimeout(() => {
-      setOpen(true)
-    }, 200)
-  }, [selectedSize])
+  const tabs = [
+    { text: t('product'), value: 'product'},
+    { text: t('sizes'), value: 'sizes'},
+    { text: t('components'), value: 'components'},
+  ]
+  const [tab, setTab] = useState(tabs[0]?.value)
 
-  const productRef = useRef(null)
-  const sizeRef = useRef(null)
+
 
   if (isEmpty(product)) {
     return (
@@ -35,51 +77,24 @@ export default function ProductDetail({product}) {
     )
   }
   return (
-    <Box sx={{mb: isXs ? '56px' : '64px'}}>
-      <AppBar color='default' sx={{top: 'auto', bottom: 0}}>
-        <Toolbar>
-          <Grid container alignItems='center'>
-            <AppBarText text={product.name} innerRef={productRef}/>&nbsp;/&nbsp;
-            <AppBarText text={selectedSize?.name || '-'} innerRef={sizeRef}/>&nbsp;&nbsp;
-            <MyButton
-              to='/sales/new'
-              size={isXs ? 'small' : 'medium'}
-              sx={(theme) => ({
-                borderRadius: theme.spacing(2),
-              })}
-              startIcon={<AttachMoneyIcon/>}
-            >
-              {t('editSales')}
-            </MyButton>
-          </Grid>
-        </Toolbar>
-      </AppBar>
-
-      <div ref={productRef}>
+    <>
+      <MyTabs value={tab} onChange={setTab} items={tabs} sx={{mb: 2}}/>
+      {tab === 'product' &&
         <ProductDisplay product={product}/>
-      </div>
-
-      <MyTabs 
-        onChange={setSeletcedSize} 
-        items={product?.sizes}
-        textKey='name'
-        sx={{mt: 1, mb: -1}}
-      />
-      <Zoom in={open}>
-        <div>
-          <SizeCard 
-            size={selectedSize} 
-            sizeRef={sizeRef}
-          />
-        </div>
-      </Zoom>
+      }
+      {tab === 'sizes' &&
+        <SizesPart sizes={product?.sizes}/>
+      }
+      {tab === 'components' &&
+        <ComponentsPart sizes={product?.sizes}/>
+      }
 
       <PageActions 
         editPath='/products/new'
         clonePath='/products/new'
         onRemove={null}
       />
-    </Box>
+    </>
   )
 }
 

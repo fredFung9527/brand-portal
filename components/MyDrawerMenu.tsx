@@ -19,6 +19,7 @@ import SearchIcon from '@mui/icons-material/Search'
 import AddIcon from '@mui/icons-material/Add'
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney'
 import { recoilMenu } from '../recoil/common'
+import EditIcon from '@mui/icons-material/Edit'
 
 function MyListItem({icon, text, to, onClick}) {
   const router = useRouter()
@@ -93,6 +94,11 @@ export default function MyDrawerMenu() {
           text: t('create'),
           icon: <AddIcon/>,
           to: '/sales/new'
+        },
+        {
+          text: t('pages./sales/edit-prices'),
+          icon: <EditIcon/>,
+          to: '/sales/edit-prices'
         }
       ]
     },

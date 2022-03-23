@@ -10,7 +10,6 @@ import MyTextField from '../form/MyTextField'
 import MyCheckBox from '../MyCheckBox'
 import MyAutocomplete from '../select/MyAutocomplete'
 import SubTitle from '../SubTitle'
-import SeasonInput from './SeasonInput'
 
 function CommonTagsInput({value, onChange}: MyInputProps) {
   function getValue(tag) {
@@ -29,7 +28,7 @@ function CommonTagsInput({value, onChange}: MyInputProps) {
     <Grid container columnSpacing={2}>
       {map(allCommonTags, tag =>
         <Grid item key={tag.id}>
-          <MyCheckBox value={getValue(tag)} onChange={(v) => setValue(v, tag)} label={tag.name}/>
+          <MyCheckBox value={getValue(tag)} onChange={(v) => setValue(v, tag)} label={tag.name} hideHelperText/>
         </Grid>
       )}
     </Grid>
@@ -136,13 +135,16 @@ export default function InfoForWebsiteInput({
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <SeasonInput
+            <MyAutocomplete
               label={t('showcaseSeasons')}
               value={showcaseSeasons}
               onChange={setShowcaseSeasons}
               error={showError && !Boolean(showcaseSeasons.length)}
               helperText={showError && !Boolean(showcaseSeasons.length) && t('error:required')}
               required
+              multiple
+              freeSolo
+              items={['W22']}
             />
           </Grid>
         </Grid>

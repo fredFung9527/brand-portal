@@ -9,6 +9,8 @@ import SeasonInput from '../product-input/SeasonInput'
 import MyAutocomplete from '../select/MyAutocomplete'
 import SubTitle from '../SubTitle'
 import { demoIndustries } from '../../demo/product'
+import { checkSeasonOrYear } from '../../utils/rules'
+import MyDropzone from '../MyDropzone'
 
 export default function SalesPartInput({
   value, onChange, showError, onValid, disableEditProduct, disableEditSize
@@ -20,6 +22,7 @@ export default function SalesPartInput({
   const [devSeason, setDevSeason] = useState(value?.devSeason || '')
   const [industries, setIndustries] = useState(value?.industries || [])
   const [remarks, setRemarks] = useState(value?.remarks || '')
+  const [documents, setDocuments] = useState(value?.documents || [])
 
   const onChangeDebounce = useRef(
     debounce((v) => {
@@ -33,10 +36,10 @@ export default function SalesPartInput({
   ).current
   useEffect(() => {
     onChangeDebounce({
-      marketCode, brandRefCode, devSeason, industries, remarks
+      marketCode, brandRefCode, devSeason, industries, remarks, documents
     })
-    onValidDebounce(marketCode && brandRefCode && industries.length)
-  }, [marketCode, brandRefCode, devSeason, industries, remarks])
+    onValidDebounce(marketCode && brandRefCode && industries.length && (!devSeason || checkSeasonOrYear(devSeason)))
+  }, [marketCode, brandRefCode, devSeason, industries, remarks, documents])
 
   return (
     <>
@@ -69,7 +72,8 @@ export default function SalesPartInput({
               label={t('devSeason')}
               value={devSeason}
               onChange={setDevSeason}
-              single
+              error={showError && Boolean(devSeason) && !checkSeasonOrYear(devSeason)}
+              helperText={showError && Boolean(devSeason) && !checkSeasonOrYear(devSeason) && t('error:invalidSeason')}
               disabled={disableEditSize}
             />
           </Grid>
@@ -95,6 +99,13 @@ export default function SalesPartInput({
             />
           </Grid>
         </Grid>
+
+        <MyDropzone 
+          label={t('attachments')} 
+          value={documents} 
+          onChange={setDocuments}
+          listView
+        />
       </Paper>
     </>
   )

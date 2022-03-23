@@ -2,7 +2,7 @@ import { Tooltip, Typography } from '@mui/material'
 import { numberWithCommas } from '../../utils/common'
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb'
 
-export default function PriceDisplay({item}) {
+export default function PriceDisplay({item, isSuggestPrice=false}) {
   function getCurrencySymbol(v) {
     const mapping = {
       'USD': '$',
@@ -15,7 +15,7 @@ export default function PriceDisplay({item}) {
   if (!item) {
     return null
   }
-  if (!item.isActive) {
+  if (!isSuggestPrice && !item.isActive) {
     return (
       <Tooltip title='Not For Sale'>
         <DoNotDisturbIcon color='secondary' sx={{fontSize: 16}}/>

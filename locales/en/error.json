@@ -9,5 +9,7 @@
   "wrongPrice": "Invalid Price",
   "invalidDate": "Invalid Date",
   "itemNotFound": "Item Not Found",
-  "insufficientInfo": "Insufficient Information"
+  "insufficientInfo": "Insufficient Information",
+  "invalidSeason": "Invalid Season / Year",
+  "invalidFile": "Invalid File"
 }

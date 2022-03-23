@@ -9,7 +9,7 @@ import MarketCodeChip from './MarketCodeChip'
 import ProductStatus from './ProductStatus'
 import ProductTargetChip from './ProductTargetChip'
 
-function ProductDisplayImage({product}) {
+export function ProductDisplayImage({product}) {
   return (
     <Grid container justifyContent='center'>
       {Boolean(product.photo) &&

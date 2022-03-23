@@ -4,8 +4,8 @@ import { MyTextFieldProps } from '../../@types/input'
 import MyTextField from '../form/MyTextField'
 import MyAutocomplete from '../select/MyAutocomplete'
 
-const TextMask = forwardRef(
-  function TextMaskCustom(props, ref) {
+const SeasonMask = forwardRef(
+  function Mask(props, ref) {
     const { onChange, ...others } = props as any
     return (
       <IMaskInput
@@ -25,23 +25,45 @@ const TextMask = forwardRef(
   }
 )
 
-export default function SeasonInput({single, ...otherProps}: MyTextFieldProps & {single?: boolean}) {
-  if (single) {
+const SeasonOrYearMask = forwardRef(
+  function Mask(props, ref) {
+    const { onChange, ...others } = props as any
     return (
-      <MyTextField
+      <IMaskInput
+        {...others}
+        mask='$$00'
+        definitions={{
+          '$': /[A-Z0-9]/
+        }}
+        inputRef={ref}
+        onAccept={(value: any) =>
+          onChange({ target: { name: others.name, value } })
+        }
+        overwrite
+      />
+    )
+  }
+)
+
+export default function SeasonInput({
+  multiple, orYear, ...otherProps
+}: MyTextFieldProps & {multiple?: boolean, orYear?: boolean}) {
+  if (multiple) {
+    return (
+      <MyAutocomplete
+        freeSolo
+        multiple
+        items={[]}
+        inputComponent={orYear ? SeasonOrYearMask: SeasonMask}
         {...otherProps}
-        inputComponent={TextMask}
       />
     )
   }
 
   return (
-    <MyAutocomplete
-      freeSolo
-      multiple
-      items={[]}
-      inputComponent={TextMask}
+    <MyTextField
       {...otherProps}
+      inputComponent={orYear ? SeasonOrYearMask: SeasonMask}
     />
   )
 }

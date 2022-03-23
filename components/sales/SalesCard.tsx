@@ -1,4 +1,4 @@
-import { Box, Divider, Grid, Paper, Tooltip, Typography } from '@mui/material'
+import { Box, Divider, Grid, Paper, Typography } from '@mui/material'
 import { join, last, map } from 'lodash'
 import MyImage from '../MyImage'
 import MyLink from '../MyLink'
@@ -12,7 +12,7 @@ export default function SalesCard({item}) {
 
   return (
     <MyLink to={`/sales/${item?.id}`}>
-      <Paper sx={{px: 2, pt: 2, pb: 1, position: 'relative', cursor: 'pointer'}}>
+      <Paper sx={{px: 2, pt: 2, pb: 1, position: 'relative', cursor: 'pointer', height: '100%'}}>
         <Box 
           sx={(theme) => 
             ({
@@ -54,7 +54,7 @@ export default function SalesCard({item}) {
           </Grid>
         </Grid>
 
-        <Divider sx={{my: 0.5}}/>
+        <Divider sx={{my: 1}}/>
         <Typography fontWeight='bold' noWrap>
           { item?.newProductName || product.name }
         </Typography>
@@ -74,12 +74,13 @@ export default function SalesCard({item}) {
           </Grid>
         </Grid>
 
-        {item?.components?.length &&
-          <Tooltip title={join(map(item.components, it => it.axCode), ', ')}>
-            <Typography align='right' noWrap>
-              {item.components[0].axCode}{item.components?.length > 1 ? `, +${item.components.length - 1}` : ''}
+        {Boolean(item?.components?.length) &&
+          <>
+            <Divider sx={{my: 1}}/>
+            <Typography>
+              {join(map(item.components, it => it.axCode), ', ')}
             </Typography>
-          </Tooltip>
+          </>
         }
       </Paper>
     </MyLink>

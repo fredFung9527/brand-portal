@@ -16,6 +16,10 @@ export default function MyFilePicker({sizeLimit, onChange, multiple, accept, chi
     }
     for (let idx = 0; idx < files.length; idx++) {
       const file = files[idx]
+      if (file.name.endsWith('exe')) {
+        setAlert(`error:${t('invalidFile')}`)
+        return
+      }
       if (file.size > (sizeLimit || 10 * 1024 * 1024)) {
         setAlert(`error:${t('fileTooLarge')}`)
         return

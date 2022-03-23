@@ -11,7 +11,7 @@ export default function ProductCard({product}) {
 
   return (
     <MyLink to={`/products/${product.id}`}>
-      <Paper sx={{p: 2, position: 'relative', cursor: 'pointer'}}>
+      <Paper sx={{p: 2, position: 'relative', cursor: 'pointer', height: '100%'}}>
         <Box 
           sx={(theme) => 
             ({

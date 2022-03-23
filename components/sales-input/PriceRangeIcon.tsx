@@ -7,6 +7,8 @@ import { filter, map, min, max, mean } from 'lodash'
 import { demoPrices } from '../../demo/sales'
 import { useDialog } from '../providers/DialogProvider'
 import InformationTable from '../InformationTable'
+import SubTitle from '../SubTitle'
+import SuggestPricesDisplay from '../products/SuggestPricesDisplay'
 
 export default function PriceRangeIcon() {
   const { t } = useTranslation('products')
@@ -23,15 +25,21 @@ export default function PriceRangeIcon() {
     openDialog({
       title: t('priceRange'),
       fullWidth: true,
-      maxWidth: 'xs',
-      content: 
-        <InformationTable
-          data={[
-            { key: t('min'), text: min(prices) },
-            { key: t('max'), text: max(prices) },
-            { key: t('mean'), text: mean(prices) }
-          ]}
-        />
+      maxWidth: 'sm',
+      content:
+        <>
+          <InformationTable
+            data={[
+              { key: t('min'), text: min(prices) },
+              { key: t('max'), text: max(prices) },
+              { key: t('mean'), text: mean(prices) }
+            ]}
+            component='div'
+          />
+
+          <SubTitle>{t('suggestPrices')}</SubTitle>
+          <SuggestPricesDisplay component='div'/>
+        </>
     })
   }
 

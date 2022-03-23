@@ -1,9 +1,9 @@
 import { Table, Paper, TableBody, TableCell, TableContainer, TableRow } from '@mui/material'
 import { map } from 'lodash'
 
-export default function InformationTable({data, ...otherProps}) {
+export default function InformationTable({data, component=null, ...otherProps}) {
   return (
-    <TableContainer component={Paper} {...otherProps}>
+    <TableContainer component={component || Paper} {...otherProps}>
       <Table>
         <TableBody>
           {map(data, (row, idx) => (

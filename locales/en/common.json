@@ -10,6 +10,8 @@
   "search": "Search",
   "searchProducts": "Search Products",
   "chart": "Chart",
+  "export": "Export",
+  "share": "Share",
   "button": {
     "switchLang": "Switch Language"
   },
@@ -27,7 +29,8 @@
     "/sales/[]": "Sales Details",
     "/sales/new": "New Sales",
     "/sales/clone": "Clone Sales",
-    "/sales/brand": "Brand Sales"
+    "/sales/brand": "Brand Sales",
+    "/sales/edit-prices": "Edit Prices"
   },
   "login": {
     "login": "Login",
@@ -48,11 +51,19 @@
     "confirmDelete": "Confirm Delete",
     "confirmDeleteText": "Are you sure to delete selected item(s)?"
   },
+  "dropzone": {
+    "hint": "Drag files here, or click to select files",
+    "files": "File(s)",
+    "size": "Size",
+    "type": "Type",
+    "download": "Download"
+  },
   "logout": "Logout",
   "filter": "Filter",
   "noResult": "No Related Result",
   "updatedOn": "updated on",
   "lastUpdate": "Last Update",
   "add": "Add",
-  "clone": "Clone"
+  "clone": "Clone",
+  "keyword": "Keyword"
 }

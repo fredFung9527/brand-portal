@@ -4,6 +4,7 @@ import useTranslation from 'next-translate/useTranslation'
 import { useEffect, useRef, useState } from 'react'
 import { MyInputProps } from '../../@types/input'
 import MyTextField from '../form/MyTextField'
+import MyDropzone from '../MyDropzone'
 
 export default function SizePartInput({
   value, onChange, showError, onValid, disableEditSize
@@ -13,6 +14,7 @@ export default function SizePartInput({
   const [name, setName] = useState(value?.name || '')
   const [newSizeName, setNewSizeName] = useState(value?.newSizeName || '')
   const [remarks, setRemarks] = useState(value?.remarks || '')
+  const [documents, setDocuments] = useState(value?.documents || [])
 
   const onChangeDebounce = useRef(
     debounce((v) => {
@@ -26,10 +28,10 @@ export default function SizePartInput({
   ).current
   useEffect(() => {
     onChangeDebounce({
-      name, newSizeName, remarks
+      name, newSizeName, remarks, documents
     })
     onValidDebounce(name)
-  }, [name, newSizeName, remarks])
+  }, [name, newSizeName, remarks, documents])
 
   return (
     <Paper sx={{p:2}}>
@@ -62,6 +64,14 @@ export default function SizePartInput({
           />
         </Grid>
       </Grid>
+
+      <MyDropzone 
+        label={t('attachments')} 
+        value={documents} 
+        onChange={setDocuments}
+        listView
+        disabled={disableEditSize}
+      />
     </Paper>
   )
 }

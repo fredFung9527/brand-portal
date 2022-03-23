@@ -1,15 +1,16 @@
-import { forEach, join } from 'lodash'
+import { forEach } from 'lodash'
 import useTranslation from 'next-translate/useTranslation'
 import { useEffect, useState } from 'react'
 import InformationTable from '../InformationTable'
 import SimpleTable from '../SimpleTable'
 import SubTitle from '../SubTitle'
+import EditSalesButton from './EditSalesButton'
 import LastUpdate from './LastUpdate'
+import SuggestPricesDisplay from './SuggestPricesDisplay'
 
-export default function SizeCard({size, newSizeName='', sizeRef=null}) {
+export default function SizeCard({size, newSizeName=''}) {
   const { t } = useTranslation('products')
 
-  const [componentTableData, setComponentTableData] = useState([])
   const [testingDatas, setTestingData] = useState([])
   const [vendorDatas, setVendorData] = useState([])
   const [usageDatas, setUsageData] = useState([])
@@ -17,16 +18,6 @@ export default function SizeCard({size, newSizeName='', sizeRef=null}) {
 
   useEffect(() => {
     let list = []
-    forEach(size?.components, it => {
-      const lastUpdate = <LastUpdate item={it} mode='simple'/>
-      list.push([it.axCode, it.factory, it.type, join(it.materials, ', '), lastUpdate])
-      if (it.remarks) {
-        list.push([`${t('remarks')}: ${it.remarks}`])
-      }
-    })
-    setComponentTableData(list)
-
-    list = []
     forEach(size?.testings, it => {
       const lastUpdate = <LastUpdate item={it} mode='simple'/>
       list.push([it.type, it.result, lastUpdate])
@@ -53,30 +44,16 @@ export default function SizeCard({size, newSizeName='', sizeRef=null}) {
 
   return (
     <>
-      <div ref={sizeRef}>
-        <SubTitle>{t('sizeDetails')}</SubTitle>
-        <InformationTable
-          data={[
-            { key: t('sizeName'), text: newSizeName || size?.name },
-            ...Boolean(newSizeName) ? [{ key: t('originalName'), text: size?.name }] : [],
-            { key: t('devSeason'), text: size?.devSeason },
-            { key: t('designer'), text: size?.designer },
-            ...Boolean(size?.remarks) ? [{ key: t('remarks'), text: size?.remarks }] : [],
-            { key: t('common:lastUpdate'), text: <LastUpdate item={size}/> }
-          ]}
-        />
-      </div>
-
-      <SubTitle>{t('components')}</SubTitle>
-      <SimpleTable
-        headers={[
-          { text: t('axCode') },
-          { text: t('factory') },
-          { text: t('componentType') },
-          { text: t('materials') },
-          { text: t('common:lastUpdate') },
+      <SubTitle>{t('sizeDetails')}</SubTitle>
+      <InformationTable
+        data={[
+          { key: t('sizeName'), text: newSizeName || size?.name },
+          ...Boolean(newSizeName) ? [{ key: t('originalName'), text: size?.name }] : [],
+          { key: t('devSeason'), text: size?.devSeason },
+          { key: t('designer'), text: size?.designer },
+          ...Boolean(size?.remarks) ? [{ key: t('remarks'), text: size?.remarks }] : [],
+          { key: t('common:lastUpdate'), text: <LastUpdate item={size}/> }
         ]}
-        data={componentTableData}
       />
 
       <SubTitle>{t('testings')}</SubTitle>
@@ -89,6 +66,9 @@ export default function SizeCard({size, newSizeName='', sizeRef=null}) {
         ]}
         data={testingDatas}
       />
+
+      <SubTitle>{t('suggestPrices')}</SubTitle>
+      <SuggestPricesDisplay/>
 
       <SubTitle>{t('vendors')}</SubTitle>
       <SimpleTable
@@ -112,7 +92,9 @@ export default function SizeCard({size, newSizeName='', sizeRef=null}) {
           { text: t('common:lastUpdate') },
         ]}
         data={usageDatas}
-      /> 
+      />
+
+      <EditSalesButton to='/sales/new'/>
     </>
   )
 }

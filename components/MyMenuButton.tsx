@@ -3,10 +3,11 @@ import { useCallback, useState } from 'react'
 import { MyMouseEvent } from '../@types/input'
 import { map } from 'lodash'
 import { MyMenuButtonItem, MyMenuButtonProps } from '../@types/button'
-import MyLink from './MyLink'
+import { useRouter } from 'next/router'
 
 export default function MyMenuButton({title, button, items, right=15, ...otherProps}: MyMenuButtonProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLElement>(null)
+  const router = useRouter()
 
   const openMenu = useCallback((event: MyMouseEvent) => {
     setAnchorEl(event.currentTarget)
@@ -51,10 +52,11 @@ export default function MyMenuButton({title, button, items, right=15, ...otherPr
         {...otherProps}
       >
         {map(items, (item: MyMenuButtonItem, idx) => 
-          <MenuItem key={idx}>
-            <Box component={item.to ? MyLink : 'div'} to={item.to} onClick={item.onClick}>
-              { item.component || item.text }
-            </Box>
+          <MenuItem 
+            key={idx} 
+            onClick={(e: any) => item.onClick ? item.onClick(e) : router.push(item.to)}
+          >
+            { item.component || item.text }
           </MenuItem>
         )}
       </Menu>

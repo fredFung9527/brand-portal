@@ -35,7 +35,7 @@ export default function MyThemeProvider({children}) {
         contrastText: '#000',
       },
       grayText: {
-        light: '#808080',
+        light: '#D3D3D3',
         main: '#808080',
         dark: '#808080',
         contrastText: '#fff',
